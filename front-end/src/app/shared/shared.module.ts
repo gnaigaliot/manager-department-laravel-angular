@@ -1,11 +1,20 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { SpinnerComponent } from './spinner.component';
+
+import { MenuItems } from './menu-items/menu-items';
+import { AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective } from './accordion';
+
 
 @NgModule({
-  declarations: [SpinnerComponent],
-  imports: [
-    CommonModule
-  ]
+  declarations: [
+    AccordionAnchorDirective,
+    AccordionLinkDirective,
+    AccordionDirective
+  ],
+  exports: [
+    AccordionAnchorDirective,
+    AccordionLinkDirective,
+    AccordionDirective
+   ],
+  providers: [ MenuItems ]
 })
 export class SharedModule { }
