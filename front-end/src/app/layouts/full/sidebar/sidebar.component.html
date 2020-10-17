@@ -10,7 +10,8 @@
             <mat-icon>exit_to_app</mat-icon> Đăng xuất </button>
     </mat-menu>
 </div>
-<mat-nav-list appAccordion>
+
+<!-- <mat-nav-list appAccordion>
     <mat-list-item appAccordionLink *ngFor="let menuitem of menuItems.getMenuitem()" routerLinkActive="selected" group="{{menuitem.state}}">
         <a class="" appAccordionToggle [routerLink]="['/', menuitem.state]" *ngIf="menuitem.type === 'link'">
             <mat-icon>{{ menuitem.icon }}</mat-icon> 
@@ -19,4 +20,8 @@
             <span class="label label-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{ badge.value }}</span> 
         </a>
     </mat-list-item>
-</mat-nav-list>
+</mat-nav-list> -->
+
+<!-- Menu Nav Start -->
+<p-panelMenu [model]="items" [multiple]="false" [style]="{'width': '300px'}"></p-panelMenu>
+<!-- Menu Nav End -->
