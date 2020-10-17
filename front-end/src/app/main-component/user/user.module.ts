@@ -16,6 +16,8 @@ import { UserSearchComponent } from './user-search/user-search.component';
   imports: [
     CommonModule,
     UserRoutingModule
-  ]
+  ],
+  providers: [],
+  entryComponents: []
 })
 export class UserModule { }

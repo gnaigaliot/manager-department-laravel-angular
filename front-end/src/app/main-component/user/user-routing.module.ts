@@ -4,7 +4,7 @@ import { UserIndexComponent } from './user-index/user-index.component';
 
 const routes: Routes = [
   {
-    path: 'user',
+    path: '',
     component: UserIndexComponent
   }
 ];
