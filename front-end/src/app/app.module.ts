@@ -17,6 +17,7 @@ import { DemoMaterialModule } from './demo-material-module';
 import { SharedModule } from './shared/shared.module';
 import { SpinnerComponent } from './shared/spinner.component';
 import { PanelMenuModule } from 'primeng/panelmenu';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { PanelMenuModule } from 'primeng/panelmenu';
     HttpClientModule,
     SharedModule,
     RouterModule.forRoot(AppRoutes),
-    PanelMenuModule
+    PanelMenuModule,
+    FontAwesomeModule
   ],
   providers: [
     {

@@ -3,7 +3,7 @@
     <!-- <form id="formSearch" [formGroup]="formSearch"> -->
         <div class="panel-heading">
             <strong class="text-u-c">
-                <i class="mdi mdi-view-module"></i>&nbsp;
+                <i class="mdi mdi-view-module"></i>
                 <span>Thông tin tìm kiếm</span>
             </strong>
         </div>
@@ -29,20 +29,20 @@
     <!-- </form> -->
 </div>
 
-<!-- <div class="panel panel-default">
+<div class="panel panel-default">
     <div class="panel-heading vt-relative">
         <strong class="text-u-c">
-            <i class="fa fa-th"></i>
+            <i class="mdi mdi-format-list-bulleted"></i>
             <span> Danh sách tài khoản</span>
         </strong>
         <div class="vt-absolute vt-shotcut-button-in-heading">
             <div>
-                <button type="button" (click)="prepareSaveOrUpdate()" class="btn btn-sm btn-info"><i class="fa fa-plus"></i> Thêm mới</button>
+                <button type="button" (click)="prepareSaveOrUpdate()" class="btn btn-sm btn-info"><i class="mdi mdi-plus-circle"></i> Thêm mới</button>
             </div>
         </div>
     </div>
     <div class="panel-body panel-table">
-        <p-table #ptable [value]="resultList.data" [paginator]="resultList.data && resultList.data.length"
+        <!-- <p-table #ptable [value]="resultList.data" [paginator]="resultList.data && resultList.data.length"
             (onLazyLoad)="processSearch($event)" [lazy]="true" [rows]="10" [totalRecords]="resultList.recordsTotal"
             [responsive]="true" [lazyLoadOnInit]="false"
             tableStyleClass="table table-wrapper table-hover table-striped b-t b-b">
@@ -109,7 +109,36 @@
             <ng-template pTemplate="paginatorleft">
                 <table-footer [resultList]="resultList"></table-footer>
             </ng-template>
+        </p-table> -->
+        <p-table [value]="sales" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true" [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+            [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0" 
+            tableStyleClass="table table-wrapper table-hover table-striped b-t b-b" styleClass="p-datatable-gridlines">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="brand">Brand <p-sortIcon field="brand"></p-sortIcon></th>
+                    <th pSortableColumn="lastYearSale">Last Year <p-sortIcon field="lastYearSale"></p-sortIcon></th>
+                    <th pSortableColumn="thisYearSale">This Year <p-sortIcon field="thisYearSale"></p-sortIcon></th>
+                    <th pSortableColumn="lastYearProfit">Last Year <p-sortIcon field="lastYearProfit"></p-sortIcon></th>
+                    <th pSortableColumn="thisYearProfit">This Year <p-sortIcon field="thisYearProfit"></p-sortIcon></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-sale>
+                <tr>
+                    <td>{{sale.brand}}</td>
+                    <td>{{sale.lastYearSale}}</td>
+                    <td>{{sale.thisYearSale}}</td>
+                    <td>{{sale.lastYearProfit}}</td>
+                    <td>{{sale.thisYearProfit}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr>
+                    <td colspan="3">Totals</td>
+                    <td>$506,202</td>
+                    <td>$531,020</td>
+                </tr>
+            </ng-template>
         </p-table>
     </div>
-</div> -->
+</div>
 <!-- </div> -->

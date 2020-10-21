@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 
 import { MenuItems } from './menu-items/menu-items';
 import { AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective } from './accordion';
-
+import { TreeTableModule } from 'primeng/treetable'
+import { TableModule } from 'primeng/table'
 
 @NgModule({
   declarations: [
@@ -13,7 +14,9 @@ import { AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective } 
   exports: [
     AccordionAnchorDirective,
     AccordionLinkDirective,
-    AccordionDirective
+    AccordionDirective,
+    TreeTableModule,
+    TableModule
    ],
   providers: [ MenuItems ]
 })
