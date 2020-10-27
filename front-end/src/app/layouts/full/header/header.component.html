@@ -8,7 +8,9 @@
         <mat-icon>settings</mat-icon> Đổi mật khẩu </button>
     <button mat-menu-item>
         <mat-icon>account_box</mat-icon> Thông tin cơ bản </button>
-    <button mat-menu-item>
+    <button mat-menu-item routerLink="/login" *ngIf="loggedIn">
         <mat-icon>exit_to_app</mat-icon> Đăng xuất </button>
+    <button mat-menu-item routerLink="/login" *ngIf="!loggedIn">
+        <mat-icon>exit_to_app</mat-icon> Đăng nhập </button>
 </mat-menu>
 

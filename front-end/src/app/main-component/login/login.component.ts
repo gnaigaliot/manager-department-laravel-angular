@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/service/auth.service';
+import { TokenService } from 'src/app/core/service/token.service';
 
 @Component({
   selector: 'app-login',
@@ -10,11 +11,13 @@ import { AuthService } from 'src/app/core/service/auth.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  error: '';
 
   constructor(
     public router: Router,
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private tokenSerivce: TokenService
   ) { }
 
   ngOnInit(): void {
@@ -27,7 +30,7 @@ export class LoginComponent implements OnInit {
 
   private buildForm(): void {
     this.loginForm = this.formBuilder.group({
-      userName: ["", Validators.required],
+      email: ["", Validators.required],
       password: ["", Validators.required]
     })
   }
@@ -38,8 +41,19 @@ export class LoginComponent implements OnInit {
     }
 
     this.authService.login(this.loginForm.value).subscribe(
-      data => console.log(data),
-      error => console.log(error)
+      data => this.handleResponse(data),
+      error => this.handleError(error)
     )
+  }
+
+  handleError(error) {
+    this.error = error.error.error;
+  }
+
+  handleResponse(data) {
+    this.tokenSerivce.handle(data.access_token);
+    this.authService.changeAuthStatus(true);
+    const redirect = this.authService.redirectUrl ? this.authService.redirectUrl : 'dashboard';
+    this.router.navigate([redirect]);
   }
 }
