@@ -848,14 +848,13 @@ button.close {
     margin: -7px 0 0 -15px;
     width: 30px;
     height: 20px;
-    background: url("assets/images/tooltip/tooltip1.svg") center center no-repeat;
+    background: center center no-repeat;
     background-size: 100%;
   }
 }
 
 .tooltip-content3 {
   position: absolute;
-  background: url("assets/images/tooltip/shape1.svg") center bottom no-repeat;
   background-size: 100% 100%;
   z-index: 9999;
   width: 200px;
@@ -1034,9 +1033,9 @@ a.mytooltip {
   }
 }
 
-.jstree-default > .jstree-container-ul .jstree-loading > .jstree-ocl {
-  background: url("assets/pages/treeview/throbber.gif") center center no-repeat;
-}
+// .jstree-default > .jstree-container-ul .jstree-loading > .jstree-ocl {
+//   background: url("assets/pages/treeview/throbber.gif") center center no-repeat;
+// }
 
 /**====== Tree-view css end ======**/
 /**  =====================
@@ -9807,36 +9806,6 @@ $col:#FF5370,#E53935,#f07178,#FF5370,#F78C6C,#F76D47,#FFCB6B,#FFB62C,#C3E88D,#91
   }
 }
 
-body {
-  &[themebg-pattern="pattern1"] {
-    background-image: url("assets/images/pattern1.png");
-  }
-  &[themebg-pattern="pattern2"] {
-    background-image: url("assets/images/pattern2.png");
-  }
-  &[themebg-pattern="pattern3"] {
-    background-image: url("assets/images/pattern3.png");
-  }
-  &[themebg-pattern="pattern4"] {
-    background-image: url("assets/images/pattern4.png");
-  }
-  &[themebg-pattern="pattern5"] {
-    background-image: url("assets/images/pattern5.png");
-  }
-  &[themebg-pattern="pattern6"] {
-    background-image: url("assets/images/pattern6.png");
-  }
-  &[themebg-pattern="pattern7"] {
-    background-image: url("assets/images/pattern7.png");
-  }
-  &[themebg-pattern="pattern8"] {
-    background-image: url("assets/images/pattern8.png");
-  }
-  &[themebg-pattern="pattern9"] {
-    background-image: url("assets/images/pattern9.png");
-  }
-}
-
 .pcoded {
   .pcoded-navbar {
     &[active-item-theme="theme1"] {
@@ -11141,33 +11110,33 @@ body {
         }
       }
     }
-    &[themebg-pattern="pattern1"] {
-      background-image: url("assets/images/pattern1.png");
-    }
-    &[themebg-pattern="pattern2"] {
-      background-image: url("assets/images/pattern2.png");
-    }
-    &[themebg-pattern="pattern3"] {
-      background-image: url("assets/images/pattern3.png");
-    }
-    &[themebg-pattern="pattern4"] {
-      background-image: url("assets/images/pattern4.png");
-    }
-    &[themebg-pattern="pattern5"] {
-      background-image: url("assets/images/pattern5.png");
-    }
-    &[themebg-pattern="pattern6"] {
-      background-image: url("assets/images/pattern6.png");
-    }
-    &[themebg-pattern="pattern7"] {
-      background-image: url("assets/images/pattern7.png");
-    }
-    &[themebg-pattern="pattern8"] {
-      background-image: url("assets/images/pattern8.png");
-    }
-    &[themebg-pattern="pattern9"] {
-      background-image: url("assets/images/pattern9.png");
-    }
+    // &[themebg-pattern="pattern1"] {
+    //   background-image: url("assets/images/pattern1.png");
+    // }
+    // &[themebg-pattern="pattern2"] {
+    //   background-image: url("assets/images/pattern2.png");
+    // }
+    // &[themebg-pattern="pattern3"] {
+    //   background-image: url("assets/images/pattern3.png");
+    // }
+    // &[themebg-pattern="pattern4"] {
+    //   background-image: url("assets/images/pattern4.png");
+    // }
+    // &[themebg-pattern="pattern5"] {
+    //   background-image: url("assets/images/pattern5.png");
+    // }
+    // &[themebg-pattern="pattern6"] {
+    //   background-image: url("assets/images/pattern6.png");
+    // }
+    // &[themebg-pattern="pattern7"] {
+    //   background-image: url("assets/images/pattern7.png");
+    // }
+    // &[themebg-pattern="pattern8"] {
+    //   background-image: url("assets/images/pattern8.png");
+    // }
+    // &[themebg-pattern="pattern9"] {
+    //   background-image: url("assets/images/pattern9.png");
+    // }
   }
 }
 
@@ -14114,14 +14083,14 @@ td.highlight {
   }
 }
 
-td.details-control {
-  background: url("assets/images/details_open.png") no-repeat center center;
-  cursor: pointer;
-}
+// td.details-control {
+//   background: url("assets/images/details_open.png") no-repeat center center;
+//   cursor: pointer;
+// }
 
-tr.shown td.details-control {
-  background: url("assets/images/details_close.png") no-repeat center center;
-}
+// tr.shown td.details-control {
+//   background: url("assets/images/details_close.png") no-repeat center center;
+// }
 
 #row-select .selected, #row-delete .selected {
   background-color: #4680ff;
@@ -17412,11 +17381,11 @@ table {
       Authentication-page css start
  ========================================= */
 
-.common-img-bg {
-  background-size: cover;
-  background: url(assets/images/bg.jpg) no-repeat center center fixed;
-  height: 100%;
-}
+// .common-img-bg {
+//   background-size: cover;
+//   background: url(assets/images/bg.jpg) no-repeat center center fixed;
+//   height: 100%;
+// }
 
 .header .login-card {
   margin-top: 30px;
@@ -17749,12 +17718,12 @@ table {
       Chatting css start
 ==========================  **/
 
-.chat-bg {
-  background-image: url("assets/images/chat-bg.jpg");
-  background-size: cover;
-  background-blend-mode: overlay;
-  background-color: rgba(255, 255, 255, 0.45);
-}
+// .chat-bg {
+//   // background-image: url("assets/images/chat-bg.jpg");
+//   background-size: cover;
+//   background-blend-mode: overlay;
+//   background-color: rgba(255, 255, 255, 0.45);
+// }
 
 #main-chat {
   .chat-single-box {
@@ -23777,10 +23746,3 @@ body.dark {
 .main-body {
   margin-top: 40px;
 }
-
-@import "~ng2-toasty/style-default.css";
-@import "~ng2-toasty/style-bootstrap.css";
-@import "~ng2-toasty/style-material.css";
-
-@import "~tinymce/skins/lightgray/skin.min.css";
-@import "~tinymce/skins/lightgray/content.min.css";

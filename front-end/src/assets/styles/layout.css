@@ -3106,3 +3106,95 @@ giangth 21/10/2020
   width: 100%;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+
+.jumbotron {
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
+  background-color: #e9ecef;
+  border-radius: .3rem;
+}
+@media (min-width: 576px) {
+  .jumbotron {
+    padding: 4rem 2rem;
+  }
+}
+/* @media (min-width: 576px) {
+  .container {
+      max-width: 540px;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+      max-width: 720px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+      max-width: 960px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+      max-width: 1140px;
+  }
+}
+.container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+.row {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+} */
+.login-register {
+  height: 100vh;
+  display: flex;
+  background-size: cover;
+  align-items: center;
+}
+.login-register .mat-card {
+  margin: 0px 15px;
+}
+.login-register .mat-form-field {
+  width: 100%;
+}
+.login-register .login-register-box {
+  max-width: 400px;
+  min-width: 280px;
+  margin: 0 auto;
+  vertical-align: middle;
+}
+.login-register .support-text {
+  margin-top: -15px;
+  display: block;
+  padding-bottom: 15px;
+}
+.mat-card {
+  font-family: Poppins;
+}
+.mat-card-title {
+  font-size: 24px;
+  font-weight: 500;
+}
+.mat-card-header .mat-card-title {
+  font-size: 20px;
+}
+.mat-card-subtitle,
+.mat-card-content {
+  font-size: 14px;
+}
+.mat-form-field-appearance-legacy .mat-form-field-wrapper {
+  padding-bottom: 1.25em;
+}
+.login-register .errorMessageDiv {
+  margin-top: -17px;
+  display: block;
+  margin-bottom: 5px;
+}
