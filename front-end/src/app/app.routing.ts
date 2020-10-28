@@ -1,9 +1,10 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from './core/guard/auth.guard';
 
 import { FullComponent } from './layouts/full/full.component';
 import { LoginComponent } from './main-component/login/login.component';
 import { RegisterComponent } from './main-component/register/register.component';
-
+``
 export const AppRoutes: Routes = [
   {
     path: 'login',
@@ -16,6 +17,7 @@ export const AppRoutes: Routes = [
   {
     path: '',
     component: FullComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
