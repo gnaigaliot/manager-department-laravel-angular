@@ -110,32 +110,49 @@
                 <table-footer [resultList]="resultList"></table-footer>
             </ng-template>
         </p-table> -->
-        <p-table [value]="sales" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true" [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
-            [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0" 
+        <p-table [value]="resultList" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+            [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" 
             tableStyleClass="table table-wrapper table-hover table-striped b-t b-b" styleClass="p-datatable-gridlines">
+            <ng-template pTemplate="colgroup" let-columns>
+                <colgroup>
+                    <col class="size-1">
+                    <col class="size-1">
+                    <col class="size-1">
+                    <col class="size-4">
+                    <col class="size-6">
+                    <col class="size-3">
+                    <col class="size-3">
+                    <col class="size-6">
+                </colgroup>
+            </ng-template>
             <ng-template pTemplate="header">
                 <tr>
-                    <th pSortableColumn="brand">Brand <p-sortIcon field="brand"></p-sortIcon></th>
-                    <th pSortableColumn="lastYearSale">Last Year <p-sortIcon field="lastYearSale"></p-sortIcon></th>
-                    <th pSortableColumn="thisYearSale">This Year <p-sortIcon field="thisYearSale"></p-sortIcon></th>
-                    <th pSortableColumn="lastYearProfit">Last Year <p-sortIcon field="lastYearProfit"></p-sortIcon></th>
-                    <th pSortableColumn="thisYearProfit">This Year <p-sortIcon field="thisYearProfit"></p-sortIcon></th>
+                    <th>STT</th>
+                    <th>Sửa</th>
+                    <th>Xóa</th>
+                    <th pSortableColumn="userCode">Mã người dùng <p-sortIcon [field]="userCode"></p-sortIcon></th>
+                    <th pSortableColumn="fullName">Họ và tên <p-sortIcon [field]="'fullName'"></p-sortIcon></th>
+                    <th>Giới tính </th>
+                    <th>Ngày sinh </th>
+                    <th>Email </th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-sale>
+            <ng-template pTemplate="body" let-item let-index="rowIndex">
                 <tr>
-                    <td>{{sale.brand}}</td>
-                    <td>{{sale.lastYearSale}}</td>
-                    <td>{{sale.thisYearSale}}</td>
-                    <td>{{sale.lastYearProfit}}</td>
-                    <td>{{sale.thisYearProfit}}</td>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="footer">
-                <tr>
-                    <td colspan="3">Totals</td>
-                    <td>$506,202</td>
-                    <td>$531,020</td>
+                    <td class="vt-align-center">{{index+1}}</td>
+                    <td class="vt-align-center">
+                        <a class="btn-table edit" [title]="'Sửa'"><i class="fa fa-edit"></i></a>
+                    </td>
+                    <td class="vt-align-center">
+                        <a class="btn-table delete" [title]="'Xóa'"><i class="fa fa-trash-alt"></i></a>
+                    </td>
+                    <td class="vt-align-center">{{item.userCode}}</td>
+                    <td>{{item.fullName}}</td>
+                    <td class="vt-align-center" *ngIf="item.gender===1"> Nam </td>
+                    <td class="vt-align-center" *ngIf="item.gender===2"> Nữ </td>
+                    <td class="vt-align-center" *ngIf="item.gender===0"> Giới tính khác </td>
+                    <td class="vt-align-center"> {{item.dateOfBirth | date: 'dd/MM/yyyy'}} </td>
+                    <td> {{item.email}} </td>
                 </tr>
             </ng-template>
         </p-table>

@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
+import { UserService } from 'src/app/core/service/user.service';
 import { BaseComponent } from 'src/app/shared/components/base-component/base-component.component';
+import { CommonUtils } from 'src/app/shared/service/common-utils.service';
 
 @Component({
   selector: 'app-user-search',
@@ -16,9 +18,11 @@ export class UserSearchComponent extends BaseComponent implements OnInit {
   constructor(
     public actr: ActivatedRoute,
     public router: Router,
-    private app: AppComponent
+    private app: AppComponent,
+    private userService: UserService
   ) {
     super(actr);
+    this.setMainService(userService);
     this.formSearch = this.buildForm({}, {
       userCode: ['', [Validators.maxLength(50)]],
       fullName: ['', [Validators.maxLength(200)]]
@@ -26,18 +30,7 @@ export class UserSearchComponent extends BaseComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.sales = [
-      { brand: 'Apple', lastYearSale: '51%', thisYearSale: '40%', lastYearProfit: '$54,406.00', thisYearProfit: '$43,342' },
-      { brand: 'Samsung', lastYearSale: '83%', thisYearSale: '96%', lastYearProfit: '$423,132', thisYearProfit: '$312,122' },
-      { brand: 'Microsoft', lastYearSale: '38%', thisYearSale: '5%', lastYearProfit: '$12,321', thisYearProfit: '$8,500' },
-      { brand: 'Philips', lastYearSale: '49%', thisYearSale: '22%', lastYearProfit: '$745,232', thisYearProfit: '$650,323,' },
-      { brand: 'Song', lastYearSale: '17%', thisYearSale: '79%', lastYearProfit: '$643,242', thisYearProfit: '500,332' },
-      { brand: 'LG', lastYearSale: '52%', thisYearSale: ' 65%', lastYearProfit: '$421,132', thisYearProfit: '$150,005' },
-      { brand: 'Sharp', lastYearSale: '82%', thisYearSale: '12%', lastYearProfit: '$131,211', thisYearProfit: '$100,214' },
-      { brand: 'Panasonic', lastYearSale: '44%', thisYearSale: '45%', lastYearProfit: '$66,442', thisYearProfit: '$53,322' },
-      { brand: 'HTC', lastYearSale: '90%', thisYearSale: '56%', lastYearProfit: '$765,442', thisYearProfit: '$296,232' },
-      { brand: 'Toshiba', lastYearSale: '75%', thisYearSale: '54%', lastYearProfit: '$21,212', thisYearProfit: '$12,533' }
-  ];
+    this.processSearch();
   }
 
   get f () {
@@ -45,7 +38,19 @@ export class UserSearchComponent extends BaseComponent implements OnInit {
   }
 
   processSearch(event?): void {
-
+    if (!CommonUtils.isValidForm(this.formSearch)) {
+      return;
+    }
+    const params = this.formSearch ? this.formSearch.value : null;
+    this.userService.getUserList(params, event).subscribe(res => {
+      this.resultList = res;
+      console.log("res", res);
+    });
+    if (!event) {
+      if (this.dataTable) {
+        this.dataTable.first = 0;
+      }
+    }
   }
 
   prepareSaveOrUpdate(item?): void {
