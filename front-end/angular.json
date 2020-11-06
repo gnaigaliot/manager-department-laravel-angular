@@ -32,6 +32,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/chartist/dist/chartist.css",
               "src/styles.css",
               "src/assets/styles/style.scss",

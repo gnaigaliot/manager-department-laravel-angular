@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Employee;
 use App\Http\Resources\EmployeeResource;
+use Illuminate\Support\Facades\DB;
 
 class EmployeeController extends Controller
 {
@@ -18,14 +19,17 @@ class EmployeeController extends Controller
     {   
         $userCode = $request->userCode;
         $fullName = $request->fullName;
-        $string = "Virgie";
-        if($userCode || $fullName) {
-            $employees = Employee::where('code', '=' , $userCode)->where('name', ' LIKE ', '%'.$string.'%')->get();
-        } else {
-            $employees = Employee::all();
+        $query = DB::table('employee');
+        if($userCode) {
+            $query->where('code', $userCode);
         }
-        // dd($employees);
-        return response()->json(EmployeeResource::collection($employees), Response::HTTP_OK);
+        if($fullName) {
+            $query->where(function($q) use ($fullName) {
+                $q->where('name','LIKE',"%$fullName%");
+            });
+        }
+        $data = $query->get();
+        return response()->json(EmployeeResource::collection($data), Response::HTTP_OK);
     }
 
     /**

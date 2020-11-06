@@ -26,7 +26,6 @@ export class UserService extends BasicService {
     }
     const buildParams = CommonUtils.buildParams(searchData);
     const url = `${environment.API_URL}/search-user`;
-    console.log("url", url);
     return this.getRequest(url, {params: buildParams});
   }
 }

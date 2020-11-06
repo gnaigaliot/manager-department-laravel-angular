@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from 'src/app/app.component';
 import { UserService } from 'src/app/core/service/user.service';
 import { BaseComponent } from 'src/app/shared/components/base-component/base-component.component';
 import { CommonUtils } from 'src/app/shared/service/common-utils.service';
+import { UserFormComponent } from '../user-form/user-form.component';
 
 @Component({
   selector: 'app-user-search',
@@ -19,7 +21,8 @@ export class UserSearchComponent extends BaseComponent implements OnInit {
     public actr: ActivatedRoute,
     public router: Router,
     private app: AppComponent,
-    private userService: UserService
+    private userService: UserService,
+    private modalService: NgbModal
   ) {
     super(actr);
     this.setMainService(userService);
@@ -44,7 +47,6 @@ export class UserSearchComponent extends BaseComponent implements OnInit {
     const params = this.formSearch ? this.formSearch.value : null;
     this.userService.getUserList(params, event).subscribe(res => {
       this.resultList = res;
-      console.log("res", res);
     });
     if (!event) {
       if (this.dataTable) {
@@ -54,6 +56,12 @@ export class UserSearchComponent extends BaseComponent implements OnInit {
   }
 
   prepareSaveOrUpdate(item?): void {
-
+    if (item && item > 0) {
+      this.userService.findOne(item).subscribe(res => {
+        this.activeFormModal(this.modalService, UserFormComponent, res.data);
+      });
+    } else {
+      this.activeFormModal(this.modalService, UserFormComponent, null);
+    }
   }
 }
