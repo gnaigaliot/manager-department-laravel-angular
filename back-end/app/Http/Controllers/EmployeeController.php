@@ -18,10 +18,9 @@ class EmployeeController extends Controller
     {   
         $userCode = $request->userCode;
         $fullName = $request->fullName;
+        $string = "Virgie";
         if($userCode || $fullName) {
-            $employees = Employee::where('code', '=' , $userCode)
-                ->where('name', ' like ', "%$fullName%")
-                ->get();
+            $employees = Employee::where('code', '=' , $userCode)->where('name', ' LIKE ', '%'.$string.'%')->get();
         } else {
             $employees = Employee::all();
         }
