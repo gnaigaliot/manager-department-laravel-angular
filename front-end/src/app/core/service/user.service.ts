@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 export class UserService extends BasicService {
 
   constructor(public httpClient: HttpClient, public helperService: HelperService) {
-    super(httpClient, helperService);
+    super('user', httpClient, helperService);
    }
 
   public getUserList(data?: any, event?: any): Observable<any> {

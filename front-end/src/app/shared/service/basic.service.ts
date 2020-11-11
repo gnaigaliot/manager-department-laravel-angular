@@ -1,11 +1,13 @@
-import { CommonUtils } from "../../shared/service/common-utils.service";
-import { Injectable } from "@angular/core";
-import { environment } from "../../../environments/environment";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable, throwError } from "rxjs";
-import { catchError, tap } from "rxjs/operators";
-import { HelperService } from "../../shared/service/helper.service";
+import { CommonUtils } from '../../shared/service/common-utils.service';
+import { Injectable } from '@angular/core';
+import { environment } from '../../../environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { HelperService } from '../../shared/service/helper.service';
 import { Storage } from '../../shared/service/storage.service';
+import { CONFIG } from '../../core/app-config';
+
 @Injectable()
 export class BasicService {
   public serviceUrl: string;
@@ -20,20 +22,26 @@ export class BasicService {
    * param module
    */
   constructor(
-    // module: string,
+    module: string,
     public httpClient: HttpClient,
     public helperService: HelperService
   ) {
-    //this.systemCode = systemCode;
-    // this.module = module;
+    this.module = module;
     const API_URL = environment.API_URL;
+    const API_PATH = CONFIG.API_PATH[this.module];
     if (!API_URL) {
       console.error(
         `Missing config system service config in src/environments/environment.ts => system: ${this.systemCode}`
       );
       return;
     }
-    this.serviceUrl = API_URL;
+    if (!API_PATH) {
+      console.error(
+        `Missing config system service config in src/app/app-config.ts => module: ${this.module}`
+      );
+      return;
+    }
+    this.serviceUrl = API_URL + API_PATH;
     console.log(this.serviceUrl);
   }
   /**
@@ -43,13 +51,20 @@ export class BasicService {
   public setSystemCode(systemCode: string) {
     this.systemCode = systemCode;
     const API_URL = environment.API_URL;
+    const API_PATH = CONFIG.API_PATH[this.module];
     if (!API_URL) {
       console.error(
         `Missing config system service config in src/environments/environment.ts => system: ${this.systemCode}`
       );
       return;
     }
-    this.serviceUrl = API_URL;
+    if (!API_PATH) {
+      console.error(
+        `Missing config system service config in src/app/app-config.ts => module: ${this.module}`
+      );
+      return;
+    }
+    this.serviceUrl = API_URL + API_PATH;
   }
 
   public search(data?: any, event?: any): Observable<any> {

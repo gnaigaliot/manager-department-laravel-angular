@@ -36,7 +36,8 @@ export class UserSearchComponent extends BaseComponent implements OnInit {
     this.processSearch();
   }
 
-  get f () {
+  // tslint:disable-next-line: typedef
+  get f() {
     return this.formSearch.controls;
   }
 
