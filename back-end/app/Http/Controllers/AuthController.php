@@ -8,6 +8,7 @@ use App\Http\Requests\SignUpRequest;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Resources\UserResource;
 
 class AuthController extends Controller
 {
@@ -37,39 +38,38 @@ class AuthController extends Controller
         return $this->respondWithToken($token);
     }
 
-    // public function signup(Request $request)
-    // {
-    //     $data = $this->validate($request, [
-    //         'name' => 'require',
-    //         'email' => 'require|email',
-    //         'password' => 'require|min:8'
-    //     ]);
-    //     DB:beginTransaction();
-    //     try {
-    //         $user = User::create([
-    //             'name' => $data['name'],
-    //             'email' => $data['email'],
-    //             'password' => Hash::make($data['password'])
-    //         ]);
-
-    //         DB::commit();
-    //         return $this->login($request);
-    //     } catch (Exception $exception) {
-    //         report($exception);
-    //         DB::rollback();
-    //         return response()->json([
-    //             'error' => true,
-    //             'success' => false,
-    //             'message' => $exception->getMessage()
-    //         ], 400);
-    //     }
-    // }
-
-    public function signup(SignUpRequest $request)
+    public function signup(Request $request)
     {
-        User::create($request->all());
-        return $this->login($request);
+        DB::beginTransaction();
+        try {
+            $user = User::create([
+                'name' => $request['name'],
+                'email' => $request['email'],
+                'password' => $request['password'],
+                'date_of_birth' => $request['dateOfBirth'],
+                'gender' => $request['gender'],
+                'mobile_number' => $request['mobileNumber'],
+                'role_id' => $request['roleId']
+            ]);
+
+            DB::commit();
+            return $this->login($request);
+        } catch (Exception $exception) {
+            report($exception);
+            DB::rollback();
+            return response()->json([
+                'error' => true,
+                'success' => false,
+                'message' => $exception->getMessage()
+            ], 400);
+        }
     }
+
+    // public function signup(SignUpRequest $request)
+    // {
+    //     User::create($request->all());
+    //     return $this->login($request);
+    // }
 
     /**
      * Get the authenticated User.

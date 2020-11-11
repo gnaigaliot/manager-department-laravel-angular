@@ -17,16 +17,40 @@ class EmployeeController extends Controller
      */
     public function index(Request $request)
     {   
-        $userCode = $request->userCode;
-        $fullName = $request->fullName;
+        $code = $request->code;
+        $name = $request->name;
+        $gender = $request->gender;
+        $email = $request->email;
+        $phoneNumber = $request->phoneNumber;
+        $salary = $request->salary;
+        $departmentName = $request->departmentName;
+        $positionsName = $request->positionsName;
+
         $query = DB::table('employee');
-        if($userCode) {
-            $query->where('code', $userCode);
+        if($code) {
+            $query->where('code', $code);
         }
-        if($fullName) {
-            $query->where(function($q) use ($fullName) {
-                $q->where('name','LIKE',"%$fullName%");
+        if($name) {
+            $query->where(function($q) use ($name) {
+                $q->where('name','LIKE',"%$name%");
             });
+        }
+        if($gender) {
+            $query->where('gender', $gender);
+        }
+        if($email) {
+            $query->where(function($q) use ($email) {
+                $q->where('email','LIKE',"%$email%");
+            });
+        }
+        if($phoneNumber) {
+            $query->where('phonenumber', $phoneNumber);
+        }
+        if($salary) {
+            $query->where('salary', $salary);
+        }
+        if($gender) {
+            $query->where('gender', $gender);
         }
         $data = $query->get();
         return response()->json(EmployeeResource::collection($data), Response::HTTP_OK);

@@ -149,6 +149,7 @@ select.form-control {
 }
 .table > thead > tr > th {
   padding: 7px 2px;
+  white-space: normal;
 }
 .modal-body {
   padding: 0px;

@@ -12,5 +12,7 @@ Route::group([
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
-    Route::get('search-user', 'EmployeeController@index');
+    Route::get('/user/search', 'UserController@index');
+    Route::get('/departments/search', 'DepartmentController@index');
+    Route::get('/employees/search', 'EmployeeController@index');
 });

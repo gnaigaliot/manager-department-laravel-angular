@@ -22,13 +22,104 @@
           </div>
         </div>
         <div class="panel-footer vt-area-button">
-          <button type="submit" class="btn btn-sm btn-info">
+          <button type="submit" (click)="processSearch();" class="btn btn-sm btn-info">
              Tìm kiếm
           </button>
         </div>
       </form>
     </div>
     <!-- TABLE -->
-     
+    <div class="panel panel-default">
+      <div class="panel-heading vt-relative">
+          <strong class="text-u-c">
+              <i class="mdi mdi-format-list-bulleted"></i>
+              <span> Danh sách phòng ban</span>
+          </strong>
+          <div class="vt-absolute vt-shotcut-button-in-heading">
+              <div>
+                  <button type="button" (click)="prepareSaveOrUpdate()" class="btn btn-sm btn-info"><i class="mdi mdi-plus-circle"></i> Thêm mới</button>
+              </div>
+          </div>
+      </div>
+      <div class="panel-body panel-table">
+        <p-table [value]="resultList" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+            [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" 
+            tableStyleClass="table table-wrapper table-hover table-striped b-t b-b" styleClass="p-datatable-gridlines">
+            <ng-template pTemplate="colgroup" let-columns>
+              <colgroup>
+                <!-- STT -->
+                <col class="size-1">
+                <!-- Sửa -->
+                <col class="size-1">
+                <!-- Xóa -->
+                <col class="size-1">
+                <!-- Danh sách nhân viên -->
+                <col class="size-2">
+                <!-- Code -->
+                <col class="size-2">
+                <!-- Name -->
+                <col class="size-4">
+                <!-- CreatedDate -->
+                <col class="size-2">
+                <!-- createdBy -->
+                <col class="size-2">
+              </colgroup>
+          </ng-template>
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <!-- STT -->
+              <th>STT</th>
+              <!-- Sửa -->
+              <th>Sửa</th>
+              <!-- Xóa -->
+              <th>Xóa</th>
+              <!-- Danh sách nhân viên -->
+              <th> Danh sách nhân viên </th>
+              <!-- Code -->
+              <th>Mã phòng ban </th>
+              <!-- Name -->
+              <th>Tên phòng ban </th>
+              <!-- CreatedDate -->
+              <th>Ngày tạo</th>
+              <!-- CreatedBy -->
+              <th>Tạo bởi</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-item let-index="rowIndex">
+            <tr>
+              <!-- STT -->
+              <td class="vt-align-center">{{index+1}}</td>
+              <!-- Edit -->
+              <td class="vt-align-center">
+                <a class="btn-table edit" (click)="prepareSaveOrUpdate(item.id)" [title]="'Sửa'">
+                </a>
+              </td>
+              <!-- Delete -->
+              <td class="vt-align-center">
+                <a class="btn-table delete" (click)="processDelete(item.id)" [title]="'Xóa'">
+                </a>
+              </td>
+              <!-- Danh sách nhân viên -->
+              <td class="vt-align-center">
+                <a class="btn-table delete" (click)="goToListEmployeeOfDepartment(item.id)" [title]="'Danh sách nhân viên'">
+                </a>
+              </td>
+              <!-- Code -->
+              <td class="vt-align-center">{{item.code}}</td>
+              <!-- Name -->
+              <td>{{item.name}}</td>
+              <!-- CreatedDate -->
+              <td class="vt-align-center">
+                {{item.createdDate | date: 'dd/MM/yyyy'}}
+              </td>
+              <!-- CreatedBy -->
+              <td class="vt-align-center">
+                {{item.createdBy }}
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
 <!-- </div> -->
     

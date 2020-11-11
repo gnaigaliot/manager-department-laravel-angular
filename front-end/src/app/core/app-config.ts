@@ -1,7 +1,9 @@
 export const CONFIG: any = {
   // TODO: khai báo path để tạo ra URL
   API_PATH: {
-    phongban: '/departments'
+    phongban: '/departments',
+    user: '/user',
+    employees: '/employees'
   }
 };
 

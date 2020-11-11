@@ -41,20 +41,20 @@ export class UserSearchComponent extends BaseComponent implements OnInit {
     return this.formSearch.controls;
   }
 
-  processSearch(event?): void {
-    if (!CommonUtils.isValidForm(this.formSearch)) {
-      return;
-    }
-    const params = this.formSearch ? this.formSearch.value : null;
-    this.userService.getUserList(params, event).subscribe(res => {
-      this.resultList = res;
-    });
-    if (!event) {
-      if (this.dataTable) {
-        this.dataTable.first = 0;
-      }
-    }
-  }
+  // processSearch(event?): void {
+  //   if (!CommonUtils.isValidForm(this.formSearch)) {
+  //     return;
+  //   }
+  //   const params = this.formSearch ? this.formSearch.value : null;
+  //   this.userService.getUserList(params, event).subscribe(res => {
+  //     this.resultList = res;
+  //   });
+  //   if (!event) {
+  //     if (this.dataTable) {
+  //       this.dataTable.first = 0;
+  //     }
+  //   }
+  // }
 
   prepareSaveOrUpdate(item?): void {
     if (item && item > 0) {

@@ -152,14 +152,14 @@ export class BasicService {
   public getRequest(url: string, options?: any): Observable<any> {
     this.helperService.isProcessing(true);
 
-    if (!options){
-      options = {
-        headers: {'Authorization':  Storage.getUserToken().access_token, 'Content-Type': 'application/json' },
-      }
-    }
-    else {
-      options.headers = {'Authorization': Storage.getUserToken().access_token, 'Content-Type': 'application/json'}
-    }
+    // if (!options){
+    //   options = {
+    //     headers: {'Authorization':  Storage.getUserToken().access_token, 'Content-Type': 'application/json' },
+    //   }
+    // }
+    // else {
+    //   options.headers = {'Authorization': Storage.getUserToken().access_token, 'Content-Type': 'application/json'}
+    // }
  
     return this.httpClient.get(url, options).pipe(
       tap(
