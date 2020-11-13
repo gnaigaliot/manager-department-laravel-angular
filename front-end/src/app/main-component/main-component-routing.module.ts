@@ -10,6 +10,14 @@ const routes: Routes = [
     path: 'employee-manager',
     loadChildren: () => import('./employee-manager/employee-manager.module').then(m => m.EmployeeManagerModule)
   },
+  {
+    path: 'department-manager',
+    loadChildren: () => import('./department-manager/department-manager.module').then(m => m.DepartmentManagerModule)
+  },
+  {
+    path: 'bill',
+    loadChildren: () => import('./bill/bill.module').then(m => m.BillModule)
+  }
 ];
 
 @NgModule({

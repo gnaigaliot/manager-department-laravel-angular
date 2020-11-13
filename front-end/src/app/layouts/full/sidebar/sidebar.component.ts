@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MenuItems } from '../../../shared/menu-items/menu-items';
-import { MenuItem } from "primeng/api"
+import { MenuItem } from 'primeng/api'
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -30,75 +30,76 @@ export class AppSidebarComponent implements OnDestroy, OnInit {
   ngOnInit(): void {
     this.initMenu();
   }
-  routerLink: ["/pagename"]
+  routerLink: ['/pagename']
+  // tslint:disable-next-line: typedef
   private initMenu() {
     this.items = [
       {
-        label: "Trang chủ",
-        icon: "pi pi-home",
-        routerLink: ["/dashboard"]
+        label: 'Trang chủ',
+        icon: 'pi pi-home',
+        routerLink: ['/dashboard']
       },
       {
-        label: "Quản lý user",
-        icon: "pi pi-user",
-        routerLink: ["/user"]
+        label: 'Quản lý user',
+        icon: 'pi pi-user',
+        routerLink: ['/user']
       },
       {
-        label: "Quản lý nhân viên",
-        icon: "pi pi-users",
+        label: 'Quản lý nhân viên',
+        icon: 'pi pi-users',
         items: [
           {
-            label: "Quản lý phòng ban",
-            icon: "pi pi-th-large",
-            routerLink: ["/employee-manager/departments"]
+            label: 'Quản lý phòng ban',
+            icon: 'pi pi-th-large',
+            routerLink: ['/employee-manager/departments']
           },
           {
-            label: "Quản lý nhân viên",
-            icon: "pi pi-th-large",
-            routerLink: ["/employee-manager/employees"]
+            label: 'Quản lý nhân viên',
+            icon: 'pi pi-th-large',
+            routerLink: ['/employee-manager/employees']
           },
           {
-            label: "Quản lý chức vụ",
-            icon: "pi pi-th-large",
-            routerLink: ["/employee-manager/positions"]
+            label: 'Quản lý chức vụ',
+            icon: 'pi pi-th-large',
+            routerLink: ['/employee-manager/positions']
           }
         ]
       },
       {
-        label: "Quản lý căn hộ",
-        icon: "pi pi-inbox",
+        label: 'Quản lý căn hộ',
+        icon: 'pi pi-inbox',
         items: [
           {
-            label: "Căn hộ",
-            routerLink: ["/department-manager/department"],
-            icon: "pi pi-th-large"
+            label: 'Căn hộ',
+            routerLink: ['/department-manager/department'],
+            icon: 'pi pi-th-large'
           },
           {
-            label: "Cư dân",
-            routerLink: ["/department-manager/person"],
-            icon: "pi pi-th-large"
+            label: 'Cư dân',
+            routerLink: ['/department-manager/person'],
+            icon: 'pi pi-th-large'
           }
         ]
       },
       {
-        label: "Quản lý hóa đơn",
-        icon: "pi pi-money-bill",
+        label: 'Quản lý hóa đơn',
+        icon: 'pi pi-money-bill',
  
         items: [
           {
-            label: "Hóa đơn điện, nước",
-            icon: "pi pi-th-large",
-            routerLink: ["/bill/bill-water-electrict"]
+            label: 'Hóa đơn điện, nước',
+            icon: 'pi pi-th-large',
+            routerLink: ['/bill/bill-water-electric']
           },
           {
-            label: "Hóa đơn dịch vụ",
-            icon: "pi pi-th-large",
-            routerLink: ["/bill/bill-orther"]
+            label: 'Hóa đơn dịch vụ',
+            icon: 'pi pi-th-large',
+            routerLink: ['/bill/bill-other']
           },
           {
-            label: "Loại dịch vụ",
-            icon: "pi pi-th-large",
-            routerLink: ["/bill/bill-service-type"]
+            label: 'Loại dịch vụ',
+            icon: 'pi pi-th-large',
+            routerLink: ['/bill/bill-service-type']
           }
         ]
       }

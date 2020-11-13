@@ -83,6 +83,7 @@
                     <td class="vt-align-center" *ngIf="item.gender===1"> Nam </td>
                     <td class="vt-align-center" *ngIf="item.gender===2"> Nữ </td>
                     <td class="vt-align-center" *ngIf="item.gender===0"> Giới tính khác </td>
+                    <td class="vt-align-center" *ngIf="item.gender===null"></td>
                     <td class="vt-align-center"> {{item.dateOfBirth | date: 'dd/MM/yyyy'}} </td>
                     <td> {{item.email}} </td>
                 </tr>
