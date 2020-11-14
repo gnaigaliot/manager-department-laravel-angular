@@ -28,4 +28,9 @@ export class UserService extends BasicService {
     const url = `${environment.API_URL}/search-user`;
     return this.getRequest(url, {params: buildParams});
   }
+
+  public getRoles(): Observable<any> {
+    const url = `${this.serviceUrl}/get-roles`;
+    return this.getRequest(url);
+  }
 }

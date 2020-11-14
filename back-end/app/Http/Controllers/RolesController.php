@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Http\Resources\UserResource;
+use App\Http\Resources\RolesResource;
 use Illuminate\Support\Facades\DB;
 
-class UserController extends Controller
+class RolesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,20 +15,15 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {   
-        $userCode = $request->userCode;
-        $fullName = $request->fullName;
-        $query = DB::table('users');
-        if($userCode) {
-            $query->where('user_code', $userCode);
-        }
-        if($fullName) {
-            $query->where(function($q) use ($fullName) {
-                $q->where('name','LIKE',"%$fullName%");
-            });
-        }
+    {
+        $query = DB::table('roles');
+        $query->orderBy('role_id', 'asc');
         $data = $query->get();
-        return response()->json(UserResource::collection($data), Response::HTTP_OK);
+        return response()->json([
+            'data' => RolesResource::collection($data),
+            'status' => Response::HTTP_OK,
+            'message' => 'OK'
+        ]);
     }
 
     /**
@@ -49,7 +44,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        //
     }
 
     /**

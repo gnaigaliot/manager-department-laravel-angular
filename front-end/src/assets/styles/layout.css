@@ -3179,3 +3179,12 @@ Giangth fix css 03/11/2020
 .p-datatable .p-datatable-thead > tr > th {
   padding: 10px 10px;
 }
+.p-multiselect {
+  display: flex!important;
+}
+.p-confirm-dialog {
+  z-index: 9999999999999!important;
+}
+.p-dialog-mask {
+  z-index: 9999999999!important;
+}

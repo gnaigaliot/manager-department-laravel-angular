@@ -8,6 +8,7 @@ import { ControlMessagesComponent } from './components/control-messages/control-
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { MultiSelectModule } from 'primeng/multiselect';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MultiSelectModule
+    MultiSelectModule,
+    ConfirmDialogModule
   ],
   exports: [
     AccordionAnchorDirective,
@@ -32,7 +34,8 @@ import { MultiSelectModule } from 'primeng/multiselect';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MultiSelectModule
+    MultiSelectModule,
+    ConfirmDialogModule
    ],
   providers: [ MenuItems ]
 })

@@ -84,7 +84,6 @@ export class AppSidebarComponent implements OnDestroy, OnInit {
       {
         label: 'Quản lý hóa đơn',
         icon: 'pi pi-money-bill',
- 
         items: [
           {
             label: 'Hóa đơn điện, nước',
