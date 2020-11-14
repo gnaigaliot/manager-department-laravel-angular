@@ -7,6 +7,7 @@ import { TableModule } from 'primeng/table'
 import { ControlMessagesComponent } from './components/control-messages/control-messages.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MultiSelectModule
   ],
   exports: [
     AccordionAnchorDirective,
@@ -29,7 +31,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ControlMessagesComponent,
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MultiSelectModule
    ],
   providers: [ MenuItems ]
 })
