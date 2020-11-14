@@ -8,9 +8,19 @@ import { SharedModule } from '../../shared/shared.module';
 import { DepartmentSearchComponent } from './department/department-search/department-search.component';
 import { EmployeeSearchComponent } from './employee/employee-search/employee-search.component';
 import { EmployeeAddComponent } from './employee/employee-add/employee-add.component';
+import { PositionSearchComponent } from './position/position-search/position-search.component';
+import { PositionAddComponent } from './position/position-add/position-add.component';
 
 @NgModule({
-  declarations: [DepartmentIndexComponent, DepartmentAddComponent, DepartmentSearchComponent, EmployeeSearchComponent, EmployeeAddComponent],
+  declarations: [
+    DepartmentIndexComponent,
+    DepartmentAddComponent,
+    DepartmentSearchComponent,
+    EmployeeSearchComponent,
+    EmployeeAddComponent,
+    PositionSearchComponent,
+    PositionAddComponent
+  ],
   imports: [
     CommonModule,
     EmployeeManagerRoutingModule,

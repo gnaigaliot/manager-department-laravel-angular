@@ -3,7 +3,8 @@ export const CONFIG: any = {
   API_PATH: {
     phongban: '/departments',
     user: '/user',
-    employees: '/employees'
+    employees: '/employees',
+    positions: '/positions'
   }
 };
 

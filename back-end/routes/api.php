@@ -13,6 +13,8 @@ Route::group([
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
     Route::get('/user/search', 'UserController@index');
+    // employee-manager
     Route::get('/departments/search', 'DepartmentController@index');
     Route::get('/employees/search', 'EmployeeController@index');
+    Route::get('/positions/search', 'PositionController@index');
 });
