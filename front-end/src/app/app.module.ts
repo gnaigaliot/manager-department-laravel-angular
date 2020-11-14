@@ -19,6 +19,7 @@ import { SpinnerComponent } from './shared/spinner.component';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
     {
       provide: LocationStrategy,
       useClass: PathLocationStrategy
-    }
+    },
+    AppComponent,
+    MessageService,
+    ConfirmationService
   ],
   bootstrap: [AppComponent]
 })

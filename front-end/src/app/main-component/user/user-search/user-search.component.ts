@@ -5,7 +5,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from 'src/app/app.component';
 import { UserService } from 'src/app/core/service/user.service';
 import { BaseComponent } from 'src/app/shared/components/base-component/base-component.component';
-import { CommonUtils } from 'src/app/shared/service/common-utils.service';
 import { UserFormComponent } from '../user-form/user-form.component';
 
 @Component({
@@ -40,21 +39,6 @@ export class UserSearchComponent extends BaseComponent implements OnInit {
   get f() {
     return this.formSearch.controls;
   }
-
-  // processSearch(event?): void {
-  //   if (!CommonUtils.isValidForm(this.formSearch)) {
-  //     return;
-  //   }
-  //   const params = this.formSearch ? this.formSearch.value : null;
-  //   this.userService.getUserList(params, event).subscribe(res => {
-  //     this.resultList = res;
-  //   });
-  //   if (!event) {
-  //     if (this.dataTable) {
-  //       this.dataTable.first = 0;
-  //     }
-  //   }
-  // }
 
   prepareSaveOrUpdate(item?): void {
     if (item && item > 0) {
