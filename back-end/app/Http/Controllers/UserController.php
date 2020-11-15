@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\UserRoleResource;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
@@ -49,7 +50,36 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        DB::beginTransaction();
+        try {
+            return $request;
+            $user = User::create([
+                'name' => $request['fullName'],
+                'email' => $request['email'],
+                'password' => $request['password'],
+                'date_of_birth' => $request['dateOfBirth'],
+                'gender' => $request['gender'],
+                'mobile_number' => $request['mobileNumber'],
+                'user_code' => $request['userCode']
+            ]);
+            return $user;
+            $lstRoleId = $request->lstRoleId;
+            foreach ($lstRoleId as $value) {
+                $userRole = UserRole::create([
+                    
+                ]);
+            }
+            DB::commit();
+            return $this->login($request);
+        } catch (Exception $exception) {
+            report($exception);
+            DB::rollback();
+            return response()->json([
+                'error' => true,
+                'success' => false,
+                'message' => $exception->getMessage()
+            ], 400);
+        }
     }
 
     /**
