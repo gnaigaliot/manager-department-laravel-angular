@@ -7,6 +7,9 @@ use Illuminate\Http\Response;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\UserRoleResource;
 use Illuminate\Support\Facades\DB;
+use App\User;
+use App\Models\UserRole;
+
 
 class UserController extends Controller
 {
@@ -50,9 +53,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request;
         DB::beginTransaction();
         try {
-            return $request;
             $user = User::create([
                 'name' => $request['fullName'],
                 'email' => $request['email'],
@@ -62,11 +65,11 @@ class UserController extends Controller
                 'mobile_number' => $request['mobileNumber'],
                 'user_code' => $request['userCode']
             ]);
-            return $user;
             $lstRoleId = $request->lstRoleId;
             foreach ($lstRoleId as $value) {
                 $userRole = UserRole::create([
-                    
+                    'user_id' => 20,
+                    'role_id' => $value
                 ]);
             }
             DB::commit();
