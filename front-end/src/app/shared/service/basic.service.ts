@@ -184,7 +184,7 @@ export class BasicService {
   public postRequest(url: string, data?: any): Observable<any> {
     this.helperService.isProcessing(true);
     const headers = new HttpHeaders ({
-      'Authorization': Storage.getUserToken().access_token,
+      // 'Authorization': Storage.getUserToken().access_token,
       'Content-Type': 'application/json'
     });
     return this.httpClient.post(url, data,{headers: headers}).pipe(

@@ -18,8 +18,9 @@ import { SharedModule } from './shared/shared.module';
 import { SpinnerComponent } from './shared/spinner.component';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
+import { NgbModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap'
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,9 @@ import { ConfirmationService, MessageService } from 'primeng/api';
     PanelMenuModule,
     FontAwesomeModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    NgbToastModule,
+    ToastModule
   ],
   providers: [
     {

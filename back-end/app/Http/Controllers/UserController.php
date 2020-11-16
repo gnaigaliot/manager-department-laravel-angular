@@ -56,7 +56,7 @@ class UserController extends Controller
         // return $request;
         DB::beginTransaction();
         try {
-            $user = User::create([
+            $id = DB::table('users')->insertGetId([
                 'name' => $request['fullName'],
                 'email' => $request['email'],
                 'password' => $request['password'],
@@ -68,12 +68,16 @@ class UserController extends Controller
             $lstRoleId = $request->lstRoleId;
             foreach ($lstRoleId as $value) {
                 $userRole = UserRole::create([
-                    'user_id' => 20,
+                    'user_id' => $id,
                     'role_id' => $value
                 ]);
             }
             DB::commit();
-            return $this->login($request);
+            return response()->json([
+                'type' => 'SUCCESS',
+                'message' => null,
+                'code' => 'Thành công'
+            ], 200);
         } catch (Exception $exception) {
             report($exception);
             DB::rollback();

@@ -1,19 +1,22 @@
 import { Component } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { HelperService } from './shared/service/helper.service';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  // Định nghĩa mấy cái service của shared vào đây là đứt
+  providers: [ MessageService ]
 })
 export class AppComponent {
   title = 'front-end';
   public blocked = false;
   constructor(public helperService: HelperService
-    , private messageService: MessageService
-    , private confirmationService: ConfirmationService
-  ) {
+            , private messageService: MessageService
+            , private confirmationService: ConfirmationService
+            ) {
     this.helperService.APP_TOAST_MESSAGE.subscribe(data => {
       this.processReturnMessage(data);
     });
@@ -29,18 +32,38 @@ export class AppComponent {
     });
   }
 
-  public processReturnMessage(serviceResponse: any) {
-    if (!serviceResponse) {
-      return;
-    }
-    if (serviceResponse.status === 500 || serviceResponse.status === 0) {
-      this.errorMessage('Có lỗi xảy ra');
-      return;
-    }
-    if (serviceResponse.code) {
-      this.toastMessage(serviceResponse.type, serviceResponse.code, serviceResponse.message);
-      return;
-    }
+  public getConfirmationService(): ConfirmationService {
+    return this.confirmationService;
+  }
+
+   /**
+   * confirmMessage
+   */
+  confirmMessage(messageCode: string, accept: Function, reject?: Function) {
+    const message = 'Bạn có muốn lưu thông tin?';
+    const header = 'Xác nhận';
+    return this.confirmationService.confirm({
+        message: message,
+        header: header,
+        icon: 'pi pi-exclamation-triangle',
+        accept: accept,
+        reject: reject
+    });
+  }
+
+  /**
+   * confirmMessage
+   */
+  confirmMessageError(messageCode: string, accept: Function, reject: Function, valueError?: any) {
+    const message = valueError + ' ' + 'Bạn có muốn lưu thông tin?';
+    const header = 'Xác nhận';
+    return this.confirmationService.confirm({
+        message: message,
+        header: header,
+        icon: 'pi pi-exclamation-triangle',
+        accept: accept,
+        reject: reject
+    });
   }
   /**
    * confirmDelete
@@ -69,17 +92,13 @@ export class AppComponent {
         reject: reject
     });
   }
-
-  public isProcessing(isProcessing: boolean) {
-    if (this.blocked && !isProcessing ) {
-      setTimeout(() => {
-        this.blocked = isProcessing;
-        this.updateViewChange();
-      }, 500);
-    } else if (!this.blocked && isProcessing ) {
-      this.blocked = isProcessing;
-      this.updateViewChange();
-    }
+  /**
+   * successMessage
+   * param errorType
+   * param errorCode
+   */
+  successMessage(code: string, message?: string) {
+    this.toastMessage('SUCCESS', code, message);
   }
   /**
    * errorMessage
@@ -89,6 +108,15 @@ export class AppComponent {
   errorMessage(code: string, message?: string) {
     this.toastMessage('ERROR', code, message);
   }
+  /**
+   * warningMessage
+   * param errorType
+   * param errorCode
+   */
+  warningMessage(code: string, message?: string) {
+    this.toastMessage('WARNING', code, message);
+  }
+
   /**
    * toastMessage
    * param severity
@@ -109,24 +137,64 @@ export class AppComponent {
     this.messageService.add({severity: severity.toLowerCase(), summary: summary, detail: detail});
   }
 
+  public message(severity: string, text: string) {
+    this.messageService.add({severity: severity.toLowerCase(), summary: 'Thông báo', detail: text});
+  }
+
+  public messageError(severity: string, text: string, value: any) {
+    const message = text;
+    const textDetail = message + ' ' + value;
+    this.messageService.add({severity: severity.toLowerCase()
+                        , summary: 'Thông báo'
+                        , detail: textDetail});
+  }
+
+  public messError(severity: string, text: string, valueError?: any) {
+    const message = text;
+    const textDetail = valueError + ' ' + message;
+    this.messageService.add({severity: severity.toLowerCase()
+                        , summary: 'Thông báo'
+                        , detail: textDetail});
+  }
+
+  /**
+   * process return message
+   * param serviceResponse
+   */
+  public processReturnMessage(serviceResponse: any) {
+    if (!serviceResponse) {
+      return;
+    }
+    if (serviceResponse.status === 500 || serviceResponse.status === 0) {
+      this.errorMessage('Có lỗi xảy ra');
+      return;
+    }
+    if (serviceResponse.code) {
+      this.toastMessage(serviceResponse.type, serviceResponse.code, serviceResponse.message);
+      return;
+    }
+  }
+  /**
+   * request is success
+   */
+  public requestIsError(): void {
+    this.toastMessage('ERROR', 'Có lỗi xảy ra');
+  }
+  public isProcessing(isProcessing: boolean) {
+    if (this.blocked && !isProcessing ) {
+      setTimeout(() => {
+        this.blocked = isProcessing;
+        this.updateViewChange();
+      }, 500);
+    } else if (!this.blocked && isProcessing ) {
+      this.blocked = isProcessing;
+      this.updateViewChange();
+    }
+  }
   private updateViewChange() {
     const progressSpinnerCheck = document.getElementById('progressSpinnerCheck');
     if (progressSpinnerCheck) {
       document.getElementById('progressSpinnerCheck').className = this.blocked ? 'progressing' : '';
     }
-  }
-  /**
-   * confirmMessage
-   */
-  confirmMessage(messageCode: string, accept: Function, reject?: Function) {
-    const message = 'Bạn có muốn lưu thông tin?';
-    const header = 'Xác nhận';
-    return this.confirmationService.confirm({
-        message: message,
-        header: header,
-        icon: 'pi pi-exclamation-triangle',
-        accept: accept,
-        reject: reject
-    });
   }
 }
