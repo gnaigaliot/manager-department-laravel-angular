@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Apartment;
+use App\Models\Person;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Http\Resources\ApartmentResource;
+use App\Http\Resources\PersonResource;
 use Illuminate\Support\Facades\DB;
 
-class ApartmentController extends Controller
+class PersonController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,21 +19,17 @@ class ApartmentController extends Controller
     {
         $code = $request->code;
         $name = $request->name;
-        $haveLive = $request->haveLive;
-        $notHaveLive = $request->notHaveLive;
-        $query = DB::table('apartment')->select(
-            'code as code',
-            'id as id',
-            'price as price',
-            'area as area',
-            'name as name',
-            'description as description',
-            'status as status',
-            'created_date as createdDate',
-            'edited_date As editedDate',
-            'created_by As createdBy',
-            'edited_by As editedBy',
-            DB::raw("(select count(*) from apartment_detail ad where ad.id_apartment = apartment.id) as amountPersonOfApart")
+        $listApartmentId = $request->lstApartmentId;
+        $query = DB::table('person')->select(
+            'id As id',
+            'code As code',
+            'name As name',
+            'gender As gender',
+            'address As address',
+            'identity_number As identifyNumber',
+            'date_of_bird As dateOfBirth',
+            'phone_number As phoneNumber',
+            'email As email'
         );
         $query->whereRaw(" 1=1 ");
         if($code) {
@@ -44,27 +40,13 @@ class ApartmentController extends Controller
                 $q->where('name','LIKE',"%$name%");
             });
         }
-        if(($haveLive == 1 && $notHaveLive == 0) || ($haveLive == 0 && $notHaveLive == 1)) {
-            if($haveLive == 1) {
-                $query->whereRaw(" exists (select * from apartment_detail addd where addd.id_apartment = apartment.id) ");
-            } else {
-                $query->whereRaw(" not exists (select * from apartment_detail addd where addd.id_apartment = apartment.id) ");
-            }
+        if($listApartmentId) {
+            
         }
         $query->orderBy('id');
         $data = $query->get();
         return response()->json([
             'data' => $data,
-            'type' => 'SUCCESS',
-            'status' => Response::HTTP_OK,
-            'code' => null
-        ]);
-    }
-
-    public function getAllApartment() {
-        $data = DB::table('apartment')->get();
-        return response()->json([
-            'data' => ApartmentResource::collection($data),
             'type' => 'SUCCESS',
             'status' => Response::HTTP_OK,
             'code' => null
@@ -95,10 +77,10 @@ class ApartmentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Apartment  $apartment
+     * @param  \App\Models\Person  $person
      * @return \Illuminate\Http\Response
      */
-    public function show(Apartment $apartment)
+    public function show(Person $person)
     {
         //
     }
@@ -106,10 +88,10 @@ class ApartmentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Apartment  $apartment
+     * @param  \App\Models\Person  $person
      * @return \Illuminate\Http\Response
      */
-    public function edit(Apartment $apartment)
+    public function edit(Person $person)
     {
         //
     }
@@ -118,10 +100,10 @@ class ApartmentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Apartment  $apartment
+     * @param  \App\Models\Person  $person
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Apartment $apartment)
+    public function update(Request $request, Person $person)
     {
         //
     }
@@ -129,10 +111,10 @@ class ApartmentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Apartment  $apartment
+     * @param  \App\Models\Person  $person
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Apartment $apartment)
+    public function destroy(Person $person)
     {
         //
     }

@@ -23,8 +23,9 @@
             </div>
         </div>
         <div class="panel-footer vt-area-button">
-            <button type="submit" (click)="processSearch();" class="btn btn-sm btn-info"><i class="fa fa-search"></i>
-                Tìm kiếm</button>
+            <button type="submit" (click)="processSearch();" class="btn btn-sm btn-info">
+                <i class="pi pi-search"></i> Tìm kiếm
+            </button>
         </div>
     </form>
 </div>
@@ -37,12 +38,12 @@
         </strong>
         <div class="vt-absolute vt-shotcut-button-in-heading">
             <div>
-                <button type="button" (click)="prepareSaveOrUpdate()" class="btn btn-sm btn-info"><i class="mdi mdi-plus-circle"></i> Thêm mới</button>
+                <button type="button" (click)="prepareSaveOrUpdate()" class="btn btn-sm btn-info"><i class="pi pi-plus-circle"></i> Thêm mới</button>
             </div>
         </div>
     </div>
     <div class="panel-body panel-table">
-        <p-table [value]="resultList" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+        <p-table [value]="resultList.data" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
             [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" 
             tableStyleClass="table table-wrapper table-hover table-striped b-t b-b" styleClass="p-datatable-gridlines">
             <ng-template pTemplate="colgroup" let-columns>
@@ -73,10 +74,10 @@
                 <tr>
                     <td class="vt-align-center">{{index+1}}</td>
                     <td class="vt-align-center">
-                        <a class="btn-table edit" [title]="'Sửa'"><i class="fa fa-edit"></i></a>
+                        <a class="btn-table edit" (click)="prepareSaveOrUpdate(item.userId)" [title]="'Sửa'"><i class="pi pi-pencil"></i></a>
                     </td>
                     <td class="vt-align-center">
-                        <a class="btn-table delete" [title]="'Xóa'"><i class="fa fa-trash-alt"></i></a>
+                        <a class="btn-table delete" (click)="processDelete(item.userId)" [title]="'Xóa'"><i class="pi pi-trash"></i></a>
                     </td>
                     <td class="vt-align-center">{{item.userCode}}</td>
                     <td>{{item.name}}</td>

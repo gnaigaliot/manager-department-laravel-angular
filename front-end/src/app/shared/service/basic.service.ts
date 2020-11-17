@@ -207,7 +207,7 @@ export class BasicService {
    */
   public deleteRequest(url: string): Observable<any> {
     const headers = new HttpHeaders ({
-      'Authorization': Storage.getUserToken().access_token,
+      // 'Authorization': Storage.getUserToken().access_token,
       'Content-Type': 'application/json'
     });
     this.helperService.isProcessing(true);

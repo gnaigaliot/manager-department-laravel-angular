@@ -11,6 +11,6 @@ class Apartment extends Model
 
     protected $table = 'apartment';
 
-    protected $fillable = ['id', 'code', 'price', 'area', 'description', 'status', 'created_date', 'edited_date', 'created_by', 'edited_by'];
+    protected $fillable = ['id', 'code', 'price', 'area', 'description', 'status', 'created_date', 'edited_date', 'created_by', 'edited_by', 'name'];
 
 }

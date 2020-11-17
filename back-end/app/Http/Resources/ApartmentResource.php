@@ -24,7 +24,8 @@ class ApartmentResource extends JsonResource
             'createdDate' => $this->created_date,
             'editedDate' => $this->edited_date,
             'createdBy' => $this->created_by,
-            'editedBy' => $this->edited_by
+            'editedBy' => $this->edited_by,
+            'name' => $this->name
         ];
     }
 }

@@ -4,7 +4,9 @@ export const CONFIG: any = {
     phongban: '/departments',
     user: '/user',
     employees: '/employees',
-    positions: '/positions'
+    positions: '/positions',
+    departments: '/department-manager/department',
+    person: '/department-manager/person'
   }
 };
 

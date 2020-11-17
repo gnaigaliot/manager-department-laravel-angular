@@ -32,7 +32,12 @@ class UserController extends Controller
             });
         }
         $data = $query->get();
-        return response()->json(UserResource::collection($data), Response::HTTP_OK);
+        return response()->json([
+            'data' => UserResource::collection($data),
+            'type' => 'SUCCESS',
+            'status' => Response::HTTP_OK,
+            'code' => null
+        ]);
     }
 
     /**
@@ -95,9 +100,17 @@ class UserController extends Controller
      * @param  \App\Models\Apartment  $apartment
      * @return \Illuminate\Http\Response
      */
-    public function show(Apartment $apartment)
+    public function show($id)
     {
-        //
+        $query = DB::table('users')->where('user_id', $id);
+        $data = $query->get();
+        $data['lstRoleId'] = 1;
+        return response()->json([
+            'data' => UserResource::collection($data)[0],
+            'type' => 'SUCCESS',
+            'status' => Response::HTTP_OK,
+            'code' => null
+        ]);
     }
 
     /**
@@ -129,8 +142,15 @@ class UserController extends Controller
      * @param  \App\Models\Apartment  $apartment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Apartment $apartment)
+    public function destroy($id)
     {
-        //
+        DB::table('users')->where('user_id', $id)->delete();
+        return response()->json([
+            'data' => null,
+            'type' => 'SUCCESS',
+            'status' => Response::HTTP_OK,
+            'code' => 'Xóa bản ghi thành công',
+            'message' => null
+        ]);
     }
 }

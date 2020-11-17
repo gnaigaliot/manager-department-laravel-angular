@@ -67,4 +67,8 @@ class User extends Authenticatable implements JWTSubject
     {
         $this->attributes['password'] = bcrypt($value);
     }
+
+    public function userRoles() {
+        return $this->hasMany('App\Models\UserRole');
+    }
 }

@@ -57,6 +57,7 @@ export class UserFormComponent extends BaseComponent implements OnInit {
 
   // tslint:disable-next-line: typedef
   public setFormValue(propertyConfigs: any, data?: any) {
+    debugger
     this.propertyConfigs = propertyConfigs;
     if (data && data.userId > 0) {
       this.formSave = this.buildForm(data, this.formConfig);

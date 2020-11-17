@@ -17,7 +17,6 @@ import { DemoMaterialModule } from './demo-material-module';
 import { SharedModule } from './shared/shared.module';
 import { SpinnerComponent } from './shared/spinner.component';
 import { PanelMenuModule } from 'primeng/panelmenu';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap'
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
@@ -40,7 +39,6 @@ import { ToastModule } from 'primeng/toast';
     SharedModule,
     RouterModule.forRoot(AppRoutes),
     PanelMenuModule,
-    FontAwesomeModule,
     ReactiveFormsModule,
     NgbModule,
     NgbToastModule,

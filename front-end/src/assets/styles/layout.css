@@ -3188,3 +3188,6 @@ Giangth fix css 03/11/2020
 .p-dialog-mask {
   z-index: 9999999999!important;
 }
+.pi {
+  font-size: inherit!important;
+}

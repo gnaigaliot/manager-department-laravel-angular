@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     FormsModule,
     ReactiveFormsModule,
     MultiSelectModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    FontAwesomeModule
    ],
   providers: [ MenuItems ]
 })
