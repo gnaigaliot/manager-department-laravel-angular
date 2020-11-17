@@ -4,7 +4,7 @@
       <form id="formSearch" [formGroup]="formSearch">
         <div class="panel-heading">
           <strong class="text-u-c">
-            <i class="mdi mdi-view-module"></i>
+            <i class="pi pi-th-large"></i>
             <span>Thông tin tìm kiếm</span>
           </strong>
         </div>
@@ -23,7 +23,7 @@
         </div>
         <div class="panel-footer vt-area-button">
           <button type="submit" (click)="processSearch();" class="btn btn-sm btn-info">
-             Tìm kiếm
+            <i class="pi pi-search"></i> Tìm kiếm
           </button>
         </div>
       </form>
@@ -32,12 +32,12 @@
     <div class="panel panel-default">
       <div class="panel-heading vt-relative">
           <strong class="text-u-c">
-              <i class="mdi mdi-format-list-bulleted"></i>
+              <i class="pi pi-list"></i>
               <span> Danh sách phòng ban</span>
           </strong>
           <div class="vt-absolute vt-shotcut-button-in-heading">
               <div>
-                  <button type="button" (click)="prepareSaveOrUpdate()" class="btn btn-sm btn-info"><i class="mdi mdi-plus-circle"></i> Thêm mới</button>
+                  <button type="button" (click)="prepareSaveOrUpdate()" class="btn btn-sm btn-info"><i class="pi pi-plus-circle"></i> Thêm mới</button>
               </div>
           </div>
       </div>
@@ -91,13 +91,11 @@
               <td class="vt-align-center">{{index+1}}</td>
               <!-- Edit -->
               <td class="vt-align-center">
-                <a class="btn-table edit" (click)="prepareSaveOrUpdate(item.id)" [title]="'Sửa'">
-                </a>
+                <a class="btn-table edit" (click)="prepareSaveOrUpdate(item.id)" [title]="'Sửa'"><i class="pi pi-pencil"></i></a>
               </td>
               <!-- Delete -->
               <td class="vt-align-center">
-                <a class="btn-table delete" (click)="processDelete(item.id)" [title]="'Xóa'">
-                </a>
+                <a class="btn-table delete" (click)="processDelete(item.id)" [title]="'Xóa'"><i class="pi pi-trash"></i></a>
               </td>
               <!-- Danh sách nhân viên -->
               <td class="vt-align-center">
@@ -118,6 +116,13 @@
               </td>
             </tr>
           </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr class="emptymessage">
+              <td [attr.colspan]="6">
+                  Không tồn tại bản ghi
+              </td>
+            </tr>
+        </ng-template>
         </p-table>
       </div>
     </div>

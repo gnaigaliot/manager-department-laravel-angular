@@ -23,10 +23,14 @@ Route::group([
     // position
     Route::get('/positions/search', 'PositionController@index');
     // user
-    Route::get('/user/get-roles', 'RolesController@index');
+    Route::get('/role/get-roles', 'RolesController@getAllRoles');
     // department-manager/department
     Route::get('/department-manager/department/search', 'ApartmentController@index');
     Route::get('/department-manager/department/get-all-apartment', 'ApartmentController@getAllApartment');
     // department-manager/person
     Route::get('department-manager/person/search', 'PersonController@index');
+    // bill/bill-electric-water
+    Route::get('/bill-water-electric/search', 'BillElectricWaterController@index');
+    // bill-service-type
+    Route::get('/bill-service-type/search', 'BillServiceTypeController@index');
 });

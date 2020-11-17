@@ -15,8 +15,8 @@ export class PersonSearchComponent extends BaseComponent implements OnInit {
   formconfig = {
     code: ['', [Validators.maxLength(50)]],
     name: ['', [Validators.maxLength(200)]],
-    lstApartmentId:['']
-  }
+    lstApartmentId: ['']
+  };
   constructor(
     public actr: ActivatedRoute,
     public router: Router,
@@ -28,16 +28,15 @@ export class PersonSearchComponent extends BaseComponent implements OnInit {
     this.formSearch = this.buildForm({}, this.formconfig);
     this.apartService.getAllApartment().subscribe( res => {
       this.apartmentList = res.data;
-      console.log(this.apartmentList);
-    }
-    );
+    });
   }
 
   ngOnInit(): void {
     this.processSearch();
   }
 
-  public get f () {
+  // tslint:disable-next-line: typedef
+  public get f() {
     return this.formSearch.controls;
   }
 

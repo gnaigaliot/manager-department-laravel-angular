@@ -6,7 +6,11 @@ export const CONFIG: any = {
     employees: '/employees',
     positions: '/positions',
     departments: '/department-manager/department',
-    person: '/department-manager/person'
+    person: '/department-manager/person',
+    role: '/role',
+    billWaterElectric: '/bill-water-electric',
+    billOther: '/bill-other',
+    bill: '/bill-service-type'
   }
 };
 

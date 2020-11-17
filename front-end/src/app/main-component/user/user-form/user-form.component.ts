@@ -6,6 +6,7 @@ import { ConfirmationService } from 'primeng/api';
 import { AppComponent } from 'src/app/app.component';
 import { ACTION_FORM, RESOURCE } from 'src/app/core/app-config';
 import { UserToken } from 'src/app/core/models/user-token.model';
+import { RoleService } from 'src/app/core/service/role.service';
 import { UserService } from 'src/app/core/service/user.service';
 import { BaseComponent } from 'src/app/shared/components/base-component/base-component.component';
 import { CommonUtils } from 'src/app/shared/service/common-utils.service';
@@ -38,10 +39,11 @@ export class UserFormComponent extends BaseComponent implements OnInit {
     private formBuilder: FormBuilder,
     public userService: UserService,
     private app: AppComponent,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private roleService: RoleService
   ) {
     super(actr, RESOURCE.USER, ACTION_FORM.SEARCH);
-    this.userService.getRoles().subscribe(res => {
+    this.roleService.getRoles().subscribe(res => {
       this.initListRole(res.data);
     });
     this.formSave = this.buildForm({}, this.formConfig);
@@ -57,7 +59,6 @@ export class UserFormComponent extends BaseComponent implements OnInit {
 
   // tslint:disable-next-line: typedef
   public setFormValue(propertyConfigs: any, data?: any) {
-    debugger
     this.propertyConfigs = propertyConfigs;
     if (data && data.userId > 0) {
       this.formSave = this.buildForm(data, this.formConfig);

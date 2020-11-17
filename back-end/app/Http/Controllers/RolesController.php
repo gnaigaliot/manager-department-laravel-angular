@@ -17,6 +17,18 @@ class RolesController extends Controller
     public function index(Request $request)
     {
         $query = DB::table('roles');
+        return $query;
+        $query->orderBy('role_id', 'asc');
+        $data = $query->get();
+        return response()->json([
+            'data' => RolesResource::collection($data),
+            'status' => Response::HTTP_OK,
+            'message' => 'OK'
+        ]);
+    }
+
+    public function getAllRoles(Request $request) {
+        $query = DB::table('roles');
         $query->orderBy('role_id', 'asc');
         $data = $query->get();
         return response()->json([

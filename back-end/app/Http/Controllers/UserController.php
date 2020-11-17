@@ -28,9 +28,10 @@ class UserController extends Controller
         }
         if($fullName) {
             $query->where(function($q) use ($fullName) {
-                $q->where('name','LIKE',"%$fullName%");
+                $q->where('full_name','LIKE',"%$fullName%");
             });
         }
+        $query->orderBy('created_at', 'desc');
         $data = $query->get();
         return response()->json([
             'data' => UserResource::collection($data),
@@ -58,13 +59,18 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
+        $userId = $request->userId;
         DB::beginTransaction();
         try {
+            if($userId) {
+
+            } else {
+                
+            }
             $id = DB::table('users')->insertGetId([
-                'name' => $request['fullName'],
+                'full_name' => $request['fullName'],
                 'email' => $request['email'],
-                'password' => $request['password'],
+                'password' => bcrypt($request['password']),
                 'date_of_birth' => $request['dateOfBirth'],
                 'gender' => $request['gender'],
                 'mobile_number' => $request['mobileNumber'],
