@@ -60,28 +60,43 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $userId = $request->userId;
+        $lstRoleId = $request->lstRoleId;
         DB::beginTransaction();
         try {
-            if($userId) {
-
-            } else {
-                
-            }
-            $id = DB::table('users')->insertGetId([
-                'full_name' => $request['fullName'],
-                'email' => $request['email'],
-                'password' => bcrypt($request['password']),
-                'date_of_birth' => $request['dateOfBirth'],
-                'gender' => $request['gender'],
-                'mobile_number' => $request['mobileNumber'],
-                'user_code' => $request['userCode']
-            ]);
-            $lstRoleId = $request->lstRoleId;
-            foreach ($lstRoleId as $value) {
-                $userRole = UserRole::create([
-                    'user_id' => $id,
-                    'role_id' => $value
+            if($userId && $userId > 0) {    // update
+                $user = DB::table('users')->where('user_id', $userId)->limit(1);
+                $user->update([
+                    'full_name' => $request['fullName'],
+                    'email' => $request['email'],
+                    'password' => bcrypt($request['password']),
+                    'date_of_birth' => $request['dateOfBirth'],
+                    'gender' => $request['gender'],
+                    'mobile_number' => $request['mobileNumber'],
+                    'user_code' => $request['userCode']
                 ]);
+                $listRole = DB::table('user_role')->where('user_id', $userId)->delete();
+                foreach ($lstRoleId as $value) {
+                    $userRole = UserRole::create([
+                        'user_id' => $userId,
+                        'role_id' => $value
+                    ]);
+                }
+            } else {    // create
+                $id = DB::table('users')->insertGetId([
+                    'full_name' => $request['fullName'],
+                    'email' => $request['email'],
+                    'password' => bcrypt($request['password']),
+                    'date_of_birth' => $request['dateOfBirth'],
+                    'gender' => $request['gender'],
+                    'mobile_number' => $request['mobileNumber'],
+                    'user_code' => $request['userCode']
+                ]);
+                foreach ($lstRoleId as $value) {
+                    $userRole = UserRole::create([
+                        'user_id' => $id,
+                        'role_id' => $value
+                    ]);
+                }
             }
             DB::commit();
             return response()->json([

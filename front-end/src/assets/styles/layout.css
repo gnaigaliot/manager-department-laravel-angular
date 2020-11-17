@@ -304,7 +304,7 @@ body .ui-contextmenu .ui-menuitem-link .ui-menuitem-icon.danger,
 }
 .modal-body .panel-default .panel-heading,
 .table-wrapper .ui-table-thead th {
-  background-color: orange;
+  background-color: #faa31b;
 }
 .modal-body .panel-default .panel-heading {
   color: #fff;

@@ -4,11 +4,12 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <strong class="text-u-c">
+                        <i class="pi pi-th-large"></i>
                         <span *ngIf="!formSave.get('userId').value"> Thêm mới người dùng</span>
                         <span *ngIf="formSave.get('userId').value"> Sửa thông tin người dùng</span>
                     </strong>
                     <div class="vt-absolute vt-shotcut-button-in-heading">
-                        <span style="display: inline-block;" (click)="activeModal.close()" title="{{'Đóng'}}" class="btn btn-span btn-sm btn-info"><i class="fa fa-times"></i></span>
+                        <span style="display: inline-block;" (click)="activeModal.close()" title="{{'Đóng'}}" class="btn btn-span btn-sm btn-info"><i class="pi pi-times" style="padding-top: 5px;"></i></span>
                     </div>
                 </div>
                 <div class="panel-body padding-xl ui-g">
@@ -20,7 +21,7 @@
                         <app-control-messages [control]="f['email']"></app-control-messages>
                         <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Mật khẩu <font size="2" color="red">*</font></label>
                         <div class="ui-g-12 ui-md-6 ui-lg-3">
-                            <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="password" maxlength="100">
+                            <input type="password" class="form-control ng-pristine ng-invalid ng-touched" formControlName="password" maxlength="100">
                         </div>
                         <app-control-messages [control]="f['password']"></app-control-messages>
                     </div>
@@ -80,8 +81,8 @@
                     </div>
                 </div>
                 <div class="panel-footer vt-area-button">
-                    <button type="submit" (click)="processSaveOrUpdate()" class="btn btn-sm btn-info"> <i class="fa fa-save"></i> Lưu lại</button>
-                    <button type="button" (click)="activeModal.close()" class="btn btn-sm btn-danger"> <i class="fa fa-times"></i> Hủy</button>
+                    <button type="submit" (click)="processSaveOrUpdate()" class="btn btn-sm btn-info"> <i class="pi pi-save"></i> Lưu lại</button>
+                    <button type="button" (click)="activeModal.close()" class="btn btn-sm btn-danger"> <i class="pi pi-times"></i> Hủy</button>
                 </div>
             </div>
         </form>
