@@ -1,19 +1,12 @@
-import { Routes } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guard/auth.guard';
 
 import { FullComponent } from './layouts/full/full.component';
 import { LoginComponent } from './main-component/login/login.component';
 import { RegisterComponent } from './main-component/register/register.component';
-``
+
 export const AppRoutes: Routes = [
-  {
-    path: 'login',
-    component: LoginComponent
-  },
-  {
-    path: 'register',
-    component: RegisterComponent
-  },
   {
     path: '',
     component: FullComponent,
@@ -34,9 +27,24 @@ export const AppRoutes: Routes = [
         loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
       },
       {
-        path: "",
+        path: '',
         loadChildren: () => import('./main-component/main-component.module').then(m => m.MainComponentModule)
       }
     ]
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
   }
 ];
+
+@NgModule({
+  imports: [RouterModule.forRoot(AppRoutes, { onSameUrlNavigation: 'reload' })],
+  exports: [RouterModule],
+  providers: []
+})
+export class AppRoutingModule {}

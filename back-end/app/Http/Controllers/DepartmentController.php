@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use App\Http\Resources\DepartmentResource;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class DepartmentController extends Controller
 {
@@ -51,7 +52,42 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $id = $request->id;
+        DB::beginTransaction();
+        try {
+            if($id && $id > 0) {
+                $department = DB::table('department')->where('id', $id)->limit(1);
+                $department->update([
+                    'id' => $request['id'],
+                    'code' => $request['code'],
+                    'name' => $request['name'],
+                    'status' => 1,
+                    'edited_date' => Carbon::now()
+                ]);
+            } else {
+                $department = DB::table('department')->insert([
+                    'id' => $request['id'],
+                    'code' => $request['code'],
+                    'name' => $request['name'],
+                    'status' => 1,
+                    'created_date' => Carbon::now()
+                ]);
+            }
+            DB::commit();
+            return response()->json([
+                'type' => 'SUCCESS',
+                'message' => null,
+                'code' => 'Thành công'
+            ], 200);
+        } catch (Exception $exception) {
+            report($exception);
+            DB::rollback();
+            return response()->json([
+                'error' => true,
+                'success' => false,
+                'message' => $exception->getMessage()
+            ], 400);
+        }
     }
 
     /**
@@ -60,9 +96,16 @@ class DepartmentController extends Controller
      * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function show(Department $department)
+    public function show($id)
     {
-        //
+        $query = Department::select('*')->find($id);
+        $data = new DepartmentResource($query);
+        return response()->json([
+            'data' => $data,
+            'type' => 'SUCCESS',
+            'status' => Response::HTTP_OK,
+            'code' => null
+        ]);
     }
 
     /**
@@ -94,8 +137,15 @@ class DepartmentController extends Controller
      * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Department $department)
+    public function destroy($id)
     {
-        //
+        DB::table('department')->where('id', $id)->delete();
+        return response()->json([
+            'data' => null,
+            'type' => 'SUCCESS',
+            'status' => Response::HTTP_OK,
+            'code' => 'Xóa bản ghi thành công',
+            'message' => null
+        ]);
     }
 }

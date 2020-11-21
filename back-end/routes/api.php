@@ -18,6 +18,9 @@ Route::group([
     Route::delete('/user/{id}', 'UserController@destroy');
     // employee-manager
     Route::get('/departments/search', 'DepartmentController@index');
+    Route::get('/departments/{id}', 'DepartmentController@show');
+    Route::delete('/departments/{id}', 'DepartmentController@destroy');
+    Route::post('/deparments', 'DepartmentController@store');
     // departments
     Route::get('/employees/search', 'EmployeeController@index');
     // position

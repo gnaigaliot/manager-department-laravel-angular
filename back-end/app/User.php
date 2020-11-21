@@ -32,14 +32,14 @@ class User extends Authenticatable implements JWTSubject
         'user_name'
     ];
 
+    protected $primaryKey = 'user_id';
+
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    protected $hidden = [ 'remember_token'];
 
     // Rest omitted for brevity
 

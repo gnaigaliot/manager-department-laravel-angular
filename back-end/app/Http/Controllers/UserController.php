@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\UserResource2;
 use App\Http\Resources\UserRoleResource;
 use Illuminate\Support\Facades\DB;
 use App\User;
@@ -123,11 +124,17 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $query = DB::table('users')->where('user_id', $id);
-        $data = $query->get();
-        $data['lstRoleId'] = 1;
+        $query = User::select('*')->find($id);
+        // lay list role cua moi user
+        $lstRoleId = UserRole::select('role_id as roleId')->where('user_id', $id)->get();
+        $list = array();
+        foreach ($lstRoleId as $value) {
+            array_push($list, $value['roleId']);
+        }
+        $query['lstRoleId'] = $list;
+        $data = new UserResource2($query);
         return response()->json([
-            'data' => UserResource::collection($data)[0],
+            'data' => $data,
             'type' => 'SUCCESS',
             'status' => Response::HTTP_OK,
             'code' => null

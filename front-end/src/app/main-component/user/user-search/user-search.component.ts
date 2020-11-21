@@ -49,4 +49,25 @@ export class UserSearchComponent extends BaseComponent implements OnInit {
       this.activeFormModal(this.modalService, UserFormComponent, null);
     }
   }
+
+  // tslint:disable-next-line: typedef
+  public exportExcel() {
+    import('xlsx').then(xlsx => {
+        const worksheet = xlsx.utils.json_to_sheet(this.resultList.data);
+        const workbook = { Sheets: { data: worksheet }, SheetNames: ['data'] };
+        const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+        this.saveAsExcelFile(excelBuffer, 'user');
+    });
+  }
+
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    import('file-saver').then(FileSaver => {
+        const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+        const EXCEL_EXTENSION = '.xlsx';
+        const data: Blob = new Blob([buffer], {
+            type: EXCEL_TYPE
+        });
+        FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+    });
+  }
 }
