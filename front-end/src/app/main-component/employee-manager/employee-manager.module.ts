@@ -10,6 +10,7 @@ import { EmployeeSearchComponent } from './employee/employee-search/employee-sea
 import { EmployeeAddComponent } from './employee/employee-add/employee-add.component';
 import { PositionSearchComponent } from './position/position-search/position-search.component';
 import { PositionAddComponent } from './position/position-add/position-add.component';
+import { DepartmentEmployeesComponent } from './department/department-employees/department-employees.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { PositionAddComponent } from './position/position-add/position-add.compo
     EmployeeSearchComponent,
     EmployeeAddComponent,
     PositionSearchComponent,
-    PositionAddComponent
+    PositionAddComponent,
+    DepartmentEmployeesComponent
   ],
   imports: [
     CommonModule,

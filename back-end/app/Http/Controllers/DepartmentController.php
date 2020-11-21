@@ -58,7 +58,6 @@ class DepartmentController extends Controller
             if($id && $id > 0) {
                 $department = DB::table('department')->where('id', $id)->limit(1);
                 $department->update([
-                    'id' => $request['id'],
                     'code' => $request['code'],
                     'name' => $request['name'],
                     'status' => 1,
@@ -66,7 +65,6 @@ class DepartmentController extends Controller
                 ]);
             } else {
                 $department = DB::table('department')->insert([
-                    'id' => $request['id'],
                     'code' => $request['code'],
                     'name' => $request['name'],
                     'status' => 1,

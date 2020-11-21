@@ -49,4 +49,8 @@ export class DepartmentSearchComponent extends BaseComponent implements OnInit {
       this.activeFormModal(this.modalService, DepartmentAddComponent, null);
     }
   }
+
+  public goToListEmployeeOfDepartment(idDepartment: number) {
+    this.router.navigateByUrl(`employee-manager/departments/${idDepartment}/employees`);
+  }
 }

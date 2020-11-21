@@ -17,12 +17,15 @@ Route::group([
     Route::get('/user/{id}', 'UserController@show');
     Route::delete('/user/{id}', 'UserController@destroy');
     // employee-manager
+
+    // department
     Route::get('/departments/search', 'DepartmentController@index');
+    Route::post('/departments', 'DepartmentController@store');
     Route::get('/departments/{id}', 'DepartmentController@show');
     Route::delete('/departments/{id}', 'DepartmentController@destroy');
-    Route::post('/deparments', 'DepartmentController@store');
-    // departments
+    // employee
     Route::get('/employees/search', 'EmployeeController@index');
+    Route::delete('/employees/{id}', 'EmployeeController@destroy');
     // position
     Route::get('/positions/search', 'PositionController@index');
     // user
