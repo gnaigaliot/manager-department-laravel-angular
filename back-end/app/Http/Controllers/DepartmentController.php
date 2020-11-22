@@ -146,4 +146,17 @@ class DepartmentController extends Controller
             'message' => null
         ]);
     }
+
+    public function getAllDepartment(Request $request)
+    {
+        $query = DB::table('department')->where('status', 1);
+        $query->orderBy('id', 'asc');
+        $data = $query->get();
+        return response()->json([
+            'data' => DepartmentResource::collection($data),
+            'type' => 'SUCCESS',
+            'status' => Response::HTTP_OK,
+            'code' => null
+        ]);
+    }
 }

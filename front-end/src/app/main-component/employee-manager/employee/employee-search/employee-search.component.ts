@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EmployeeService } from 'src/app/core/service/employee.service';
 import { BaseComponent } from 'src/app/shared/components/base-component/base-component.component';
+import { EmployeeAddComponent } from '../employee-add/employee-add.component';
 
 @Component({
   selector: 'app-employee-search',
@@ -12,20 +14,21 @@ import { BaseComponent } from 'src/app/shared/components/base-component/base-com
 export class EmployeeSearchComponent extends BaseComponent implements OnInit {
 
   formConfig = {
-    code: ["", [Validators.maxLength(50)]],
-    name: ["", [Validators.maxLength(50)]],
-    gender: ["", [Validators.maxLength(50)]],
-    email: ["", [Validators.maxLength(50)]],
-    phoneNumber: ["", [Validators.maxLength(50)]],
-    salary: ["", [Validators.maxLength(50)]],
-    departmentName: ["", [Validators.maxLength(50)]],
-    positionsName: ["", [Validators.maxLength(50)]]
+    code: ['', [Validators.maxLength(50)]],
+    name: ['', [Validators.maxLength(50)]],
+    gender: ['', [Validators.maxLength(50)]],
+    email: ['', [Validators.maxLength(50)]],
+    phoneNumber: ['', [Validators.maxLength(50)]],
+    salary: ['', [Validators.maxLength(50)]],
+    departmentName: ['', [Validators.maxLength(50)]],
+    positionsName: ['', [Validators.maxLength(50)]]
   };
 
   constructor(
     public actr: ActivatedRoute,
     public router: Router,
-    public employeeService: EmployeeService
+    public employeeService: EmployeeService,
+    private modalService: NgbModal
   ) {
     super(actr);
     this.setMainService(employeeService);
@@ -41,10 +44,12 @@ export class EmployeeSearchComponent extends BaseComponent implements OnInit {
   }
 
   public prepareSaveOrUpdate(item?: any) {
-    if (item == null) {
-      this.router.navigateByUrl("employee-manager/employees/add");
+    if (item && item > 0) {
+      this.employeeService.findOne(item).subscribe(res => {
+        this.activeFormModal(this.modalService, EmployeeAddComponent, res.data);
+      });
     } else {
-      this.router.navigate(["employee-manager/employees/edit", item]);
+      this.activeFormModal(this.modalService, EmployeeAddComponent, null);
     }
   }
 

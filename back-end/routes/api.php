@@ -20,14 +20,18 @@ Route::group([
 
     // department
     Route::get('/departments/search', 'DepartmentController@index');
+    Route::get('/departments/get-all-department', 'DepartmentController@getAllDepartment');
     Route::post('/departments', 'DepartmentController@store');
     Route::get('/departments/{id}', 'DepartmentController@show');
     Route::delete('/departments/{id}', 'DepartmentController@destroy');
     // employee
     Route::get('/employees/search', 'EmployeeController@index');
+    Route::get('/employees/{id}', 'EmployeeController@show');
+    Route::post('/employees', 'EmployeeController@store');
     Route::delete('/employees/{id}', 'EmployeeController@destroy');
     // position
     Route::get('/positions/search', 'PositionController@index');
+    Route::get('/positions/get-all-position', 'PositionController@getAllPosition');
     // user
     Route::get('/role/get-roles', 'RolesController@getAllRoles');
     // department-manager/department

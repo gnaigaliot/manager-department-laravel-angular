@@ -6,7 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Employee;
 use App\Http\Resources\EmployeeResource;
+use App\Http\Resources\EmployeeResource2;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use App\Models\WorkProcess;
 
 class EmployeeController extends Controller
 {
@@ -26,7 +29,27 @@ class EmployeeController extends Controller
         $departmentName = $request->departmentName;
         $positionsName = $request->positionsName;
 
-        $query = DB::table('employee');
+        $query = DB::table('employee')->select(
+            'employee.id as id',
+            'employee.code as userCode',
+            'employee.name as fullName',
+            'employee.date_of_bird as dateOfBirth',
+            'employee.gender as gender',
+            'employee.email as email',
+            'employee.phonenumber as phoneNumber',
+            'employee.created_by as createdBy',
+            'employee.created_date as createdDate',
+            'employee.is_working as isWorking',
+            'department.id as idDepartment',
+            'department.name as departmentName',
+            'positions.id as idPositions',
+            'positions.name as positionsName',
+            'positions.salary as salary'
+        );
+        $query->leftJoin('work_process', 'employee.id', '=', 'work_process.id_employee');
+        $query->leftJoin('department', 'department.id', '=', 'work_process.id_department');
+        $query->leftJoin('positions', 'work_process.id_positions', '=', 'positions.id');
+        $query->where('employee.status', 1);
         if($code) {
             $query->where('code', $code);
         }
@@ -52,8 +75,14 @@ class EmployeeController extends Controller
         if($gender) {
             $query->where('gender', $gender);
         }
+        $query->orderBy('employee.id', 'DESC');
         $data = $query->get();
-        return response()->json(EmployeeResource::collection($data), Response::HTTP_OK);
+        return response()->json([
+            'data' => $data,
+            'type' => 'SUCCESS',
+            'status' => Response::HTTP_OK,
+            'code' => null
+        ]);
     }
 
     /**
@@ -74,7 +103,67 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $id = $request->id;
+        DB::beginTransaction();
+        try {
+            if($id && $id > 0) {
+                $employee = DB::table('employee')->where('id', $id)->limit(1);
+                $employee->update([
+                    'code' => $request['code'],
+                    'name' => $request['name'],
+                    'date_of_bird' => $request['dateOfBird'],
+                    'gender' => $request['gender'],
+                    'email' => $request['email'],
+                    'phonenumber' => $request['phonenumber'],
+                    'status' => 1,
+                    'edited_date' => Carbon::now(),
+                    'edited_by' => 'admin',
+                    'is_working' => 1,
+                ]);
+                $workProcess = DB::table('work_process')->select('*');
+                $workProcess->whereRaw(" 1=1 ");
+                $workProcess->where('id_employee', $id);
+                $data = $workProcess->get();
+                return $data;
+            } else {
+                $employeeId = DB::table('employee')->insertGetId([
+                    'name' => $request['name'],
+                    'date_of_bird' => $request['dateOfBird'],
+                    'gender' => $request['gender'],
+                    'email' => $request['email'],
+                    'phonenumber' => $request['phonenumber'],
+                    'status' => 1,
+                    'created_date' => Carbon::now(),
+                    'created_by' => 'admin',
+                    'is_working' => 1,
+                ]);
+                $employee = DB::table('employee')->where('id', $employeeId)->limit(1);
+                $employee->update([
+                    'code' => 'EMP' . "" . $employeeId
+                ]);
+                $workProcess = WorkProcess::create([
+                    'id_employee' => $employeeId,
+                    'start_date' => $request['startDate'],
+                    'end_date' => $request['endDate'],
+                    'id_department' => $request['idDepartment'],
+                    'id_positions' => $request['idPositions']
+                ]);
+            }
+            DB::commit();
+            return response()->json([
+                'type' => 'SUCCESS',
+                'message' => null,
+                'code' => 'Thành công'
+            ], 200);
+        } catch (Exception $exception) {
+            report($exception);
+            DB::rollback();
+            return response()->json([
+                'error' => true,
+                'success' => false,
+                'message' => $exception->getMessage()
+            ], 400);
+        }
     }
 
     /**
@@ -83,9 +172,26 @@ class EmployeeController extends Controller
      * @param  \App\Models\Apartment  $apartment
      * @return \Illuminate\Http\Response
      */
-    public function show(Apartment $apartment)
+    public function show($id)
     {
-        //
+        $query = Employee::select(
+            'id as id',
+            'code as userCode',
+            'name as name',
+            'date_of_bird as dateOfBirth',
+            'gender as gender',
+            'email as email',
+            'phonenumber as phonenumber',
+            'created_by as createdBy',
+            'created_date as createdDate',
+            'is_working as isWorking'
+        )->where('id', $id)->first();
+        return response()->json([
+            'data' => $query,
+            'type' => 'SUCCESS',
+            'status' => Response::HTTP_OK,
+            'code' => null
+        ]);
     }
 
     /**
@@ -117,8 +223,27 @@ class EmployeeController extends Controller
      * @param  \App\Models\Apartment  $apartment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Apartment $apartment)
+    public function destroy($id)
     {
-        //
+        $employee = DB::table('employee')->where('id', $id)->limit(1);
+        if($employee->count() > 0) {
+            $employee->update([
+                'status' => 0
+            ]);
+            return response()->json([
+                'data' => null,
+                'type' => 'SUCCESS',
+                'status' => Response::HTTP_OK,
+                'code' => 'Xóa bản ghi thành công',
+                'message' => null
+            ]);
+        } else {
+            return response()->json([
+                'data' => null,
+                'type' => 'WARNING',
+                'code' => 'Bản ghi không tồn tại',
+                'message' => null
+            ]);
+        }
     }
 }

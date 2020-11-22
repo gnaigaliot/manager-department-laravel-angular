@@ -3199,7 +3199,8 @@ Giangth fix css 03/11/2020
   padding: 0.27rem 0.5rem!important;
 }
 .p-inputtext {
-  padding: 0.14rem 0.5rem!important;
+  padding: 0.35rem 0.5rem!important;
+  font-size: 13px;
 }
 strong {
   font-weight: bold!important;

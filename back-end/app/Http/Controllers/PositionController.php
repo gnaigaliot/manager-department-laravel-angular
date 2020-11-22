@@ -34,15 +34,17 @@ class PositionController extends Controller
         $data = $query->get();
         return response()->json(PositionResource::collection($data), Response::HTTP_OK);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    
+    public function getAllPosition(Request $request) {
+        $query = DB::table('positions')->where('status', 1);
+        $query->orderBy('id', 'asc');
+        $data = $query->get();
+        return response()->json([
+            'data' => PositionResource::collection($data),
+            'type' => 'SUCCESS',
+            'status' => Response::HTTP_OK,
+            'code' => null
+        ]);
     }
 
     /**

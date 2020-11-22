@@ -11,5 +11,5 @@ class WorkProcess extends Model
 
     protected $table = 'work_process';
 
-    protected $fillable = ['id', 'start_date', 'end_date', 'id_department', 'id_postions', 'id_employee'];
+    protected $fillable = ['id', 'start_date', 'end_date', 'id_department', 'id_positions', 'id_employee', 'updated_at', 'created_at'];
 }

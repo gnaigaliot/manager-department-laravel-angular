@@ -20,7 +20,9 @@ class WorkProcessResource extends JsonResource
             'endDate' => $this->end_date,
             'idDepartment' => $this->id_department,
             'idPositions' => $this->id_positions,
-            'idEmployee' => $this->id_employee
+            'idEmployee' => $this->id_employee,
+            'createdAt' => $this->created_at,
+            'updatedAt' => $this->updated_at
         ];
     }
 }
