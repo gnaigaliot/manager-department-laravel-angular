@@ -5,6 +5,7 @@ import { CommonUtils } from '../../service/common-utils.service';
 import { DEFAULT_MODAL_OPTIONS, ACTION_FORM } from '../../../core/app-config';
 import { SysPropertyDetailBean } from '../../../core/models/sys-property-details.model';
 import { Storage } from '../../service/storage.service';
+import { TokenService } from 'src/app/core/service/token.service';
 @Injectable()
 export class BaseComponent {
   public propertyConfigs = new Array<SysPropertyDetailBean>();
@@ -164,13 +165,17 @@ export class BaseComponent {
    */
   // tslint:disable-next-line: typedef
   public havePermission(roleCode) {
-    const lstRole = Storage.getUserToken().lstRoleCode;
+    const lstRole = TokenService.getListRole();
     if (lstRole == null) {
       return false;
     }
     if (lstRole.indexOf(roleCode) >= 0 || lstRole.indexOf('ROLE_ADMIN') >= 0) {
       return true;
     }
-     return false;
+    return false;
+  }
+
+  public getNameUserLogin() {
+    return TokenService.getUserLoginName();
   }
 }

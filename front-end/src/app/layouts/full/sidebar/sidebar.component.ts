@@ -2,22 +2,25 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MenuItems } from '../../../shared/menu-items/menu-items';
 import { MenuItem } from 'primeng/api'
+import { BaseComponent } from 'src/app/shared/components/base-component/base-component.component';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: []
 })
-export class AppSidebarComponent implements OnDestroy, OnInit {
+export class AppSidebarComponent extends BaseComponent implements OnDestroy, OnInit {
   mobileQuery: MediaQueryList;
 
   items: MenuItem[];
   private _mobileQueryListener: () => void;
+  userLoginName: string;
 
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
     public menuItems: MenuItems
   ) {
+    super(null);
     this.mobileQuery = media.matchMedia('(min-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -29,6 +32,8 @@ export class AppSidebarComponent implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     this.initMenu();
+    this.userLoginName = this.getNameUserLogin();
+    console.log("this.userLoginName", this.userLoginName);
   }
   routerLink: ['/pagename']
   // tslint:disable-next-line: typedef

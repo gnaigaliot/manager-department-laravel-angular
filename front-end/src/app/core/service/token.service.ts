@@ -15,6 +15,22 @@ export class TokenService {
     this.set(token);
   }
 
+  setListRole(lstRole) {
+    localStorage.setItem('listRoleUser', lstRole);
+  }
+
+  setUserLoginName(userLoginName) {
+    localStorage.setItem('userLoginName', userLoginName);
+  }
+
+  public static getListRole() {
+    return localStorage.getItem('listRoleUser');
+  }
+
+  public static getUserLoginName() {
+    return localStorage.getItem('userLoginName');
+  }
+
   set(token) {
     localStorage.setItem('token', token);
   }
@@ -24,6 +40,8 @@ export class TokenService {
 
   remove() {
     localStorage.removeItem('token');
+    localStorage.removeItem('listRoleUser');
+    localStorage.removeItem('userLoginName');
   }
 
   isValid() {

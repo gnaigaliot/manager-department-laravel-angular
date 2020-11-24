@@ -40,6 +40,8 @@ Route::group([
     // department-manager/department
     Route::get('/department-manager/department/search', 'ApartmentController@index');
     Route::get('/department-manager/department/get-all-apartment', 'ApartmentController@getAllApartment');
+    Route::get('/department-manager/department/{id}', 'ApartmentController@show');
+    Route::delete('/department-manager/department/{id}', 'ApartmentController@destroy');
     // department-manager/person
     Route::get('department-manager/person/search', 'PersonController@index');
     // bill/bill-electric-water

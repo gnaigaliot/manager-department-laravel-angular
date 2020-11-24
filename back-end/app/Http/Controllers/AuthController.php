@@ -9,6 +9,8 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Resources\UserResource;
+use App\Models\Roles;
+use App\Models\UserRole;
 
 class AuthController extends Controller
 {
@@ -112,11 +114,18 @@ class AuthController extends Controller
      */
     protected function respondWithToken($token)
     {
+        $lstRoleId = UserRole::select('role_id as roleId')->where('user_id', auth()->user()['user_id'])->get();
+        $list = array();
+        foreach ($lstRoleId as $value) {
+            $role = Roles::select('role')->where('role_id', $value['roleId'])->first();
+            array_push($list, $role['role']);
+        }
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60,
-            'user' => auth()->user()->name
+            'user' => auth()->user(),
+            'listRoleUser' => $list
         ]);
     }
 }

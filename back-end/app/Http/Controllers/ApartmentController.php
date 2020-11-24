@@ -98,32 +98,16 @@ class ApartmentController extends Controller
      * @param  \App\Models\Apartment  $apartment
      * @return \Illuminate\Http\Response
      */
-    public function show(Apartment $apartment)
+    public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Apartment  $apartment
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Apartment $apartment)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Apartment  $apartment
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Apartment $apartment)
-    {
-        //
+        $query = Apartment::select('*')->find($id);
+        $data = new ApartmentResource($query);
+        return response()->json([
+            'data' => $data,
+            'type' => 'SUCCESS',
+            'status' => Response::HTTP_OK,
+            'code' => null
+        ]);
     }
 
     /**
@@ -132,8 +116,25 @@ class ApartmentController extends Controller
      * @param  \App\Models\Apartment  $apartment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Apartment $apartment)
+    public function destroy($id)
     {
-        //
+        $apartment = DB::table('apartment')->where('id', $id)->limit(1);
+        if($apartment->count() > 0) {
+            DB::table('apartment')->where('id', $id)->delete();
+            return response()->json([
+                'data' => null,
+                'type' => 'SUCCESS',
+                'status' => Response::HTTP_OK,
+                'code' => 'Xóa bản ghi thành công',
+                'message' => null
+            ]);
+        } else {
+            return response()->json([
+                'data' => null,
+                'type' => 'WARNING',
+                'code' => 'Bản ghi không tồn tại',
+                'message' => null
+            ]);
+        }
     }
 }

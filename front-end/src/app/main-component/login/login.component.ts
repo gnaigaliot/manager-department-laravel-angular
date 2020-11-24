@@ -52,6 +52,8 @@ export class LoginComponent implements OnInit {
 
   handleResponse(data) {
     this.tokenSerivce.handle(data.access_token);
+    this.tokenSerivce.setListRole(data.listRoleUser);
+    this.tokenSerivce.setUserLoginName(data.user['full_name']);
     this.authService.changeAuthStatus(true);
     const redirect = this.authService.redirectUrl ? this.authService.redirectUrl : 'dashboard';
     this.router.navigate([redirect]);
