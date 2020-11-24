@@ -10,6 +10,8 @@ use App\Http\Resources\EmployeeResource2;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Models\WorkProcess;
+use App\Models\Department;
+use App\Models\Position;
 
 class EmployeeController extends Controller
 {
@@ -109,7 +111,6 @@ class EmployeeController extends Controller
             if($id && $id > 0) {
                 $employee = DB::table('employee')->where('id', $id)->limit(1);
                 $employee->update([
-                    'code' => $request['code'],
                     'name' => $request['name'],
                     'date_of_bird' => $request['dateOfBird'],
                     'gender' => $request['gender'],
@@ -118,13 +119,16 @@ class EmployeeController extends Controller
                     'status' => 1,
                     'edited_date' => Carbon::now(),
                     'edited_by' => 'admin',
-                    'is_working' => 1,
+                    'is_working' => 1
                 ]);
-                $workProcess = DB::table('work_process')->select('*');
-                $workProcess->whereRaw(" 1=1 ");
-                $workProcess->where('id_employee', $id);
-                $data = $workProcess->get();
-                return $data;
+                $workProcess = WorkProcess::select('*')->where('id_employee', $id)->first();
+                $workProcess->update([
+                    'start_date' => $request['startDate'],
+                    'end_date' => $request['endDate'],
+                    'id_department' => $request['idDepartment'],
+                    'id_positions' => $request['idPositions'],
+                    'update_at' => Carbon::now()
+                ]);
             } else {
                 $employeeId = DB::table('employee')->insertGetId([
                     'name' => $request['name'],
@@ -178,7 +182,7 @@ class EmployeeController extends Controller
             'id as id',
             'code as userCode',
             'name as name',
-            'date_of_bird as dateOfBirth',
+            'date_of_bird as dateOfBird',
             'gender as gender',
             'email as email',
             'phonenumber as phonenumber',
@@ -186,6 +190,16 @@ class EmployeeController extends Controller
             'created_date as createdDate',
             'is_working as isWorking'
         )->where('id', $id)->first();
+        $workProcess = WorkProcess::select('*')->where('id_employee', $id)->first();
+        $department = Department::select('*')->where('id', $workProcess['id_department'])->first();
+        $position = Position::select('*')->where('id', $workProcess['id_positions'])->first();
+        $query['idDepartment'] = $department['id'];
+        $query['departmentName'] = $department['name'];
+        $query['idPositions'] = $position['id'];
+        $query['positionsName'] = $position['name'];
+        $query['salary'] = $position['salary'];
+        $query['startDate'] = $workProcess['start_date'];
+        $query['endDate'] = $workProcess['end_date'];
         return response()->json([
             'data' => $query,
             'type' => 'SUCCESS',

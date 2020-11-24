@@ -47,12 +47,7 @@ export class EmployeeAddComponent extends BaseComponent implements OnInit {
   ) {
     super(null);
     this.setMainService(employeeService);
-    this.formSave = this.buildForm({}, this.formConfig);
-  }
-
-  ngOnInit(): void {
     // lay list phong ban
-    this.listDepartment = [];
     this.phongBanService.getAllDepartment().subscribe(data => {
       if (data) {
         for (const item of data.data) {
@@ -61,7 +56,6 @@ export class EmployeeAddComponent extends BaseComponent implements OnInit {
       }
     });
     // list chuc vu
-    this.listPositions = [];
     this.positionService.getAllPosition().subscribe(data => {
       if (data) {
         for (const item of data.data) {
@@ -69,6 +63,10 @@ export class EmployeeAddComponent extends BaseComponent implements OnInit {
         }
       }
     });
+    this.formSave = this.buildForm({}, this.formConfig);
+  }
+
+  ngOnInit(): void {
   }
 
   // tslint:disable-next-line: typedef

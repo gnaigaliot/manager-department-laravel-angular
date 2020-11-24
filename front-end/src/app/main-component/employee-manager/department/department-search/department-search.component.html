@@ -42,7 +42,7 @@
           </div>
       </div>
       <div class="panel-body panel-table">
-        <p-table [value]="resultList" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+        <p-table [value]="resultList.data" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
             [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" 
             tableStyleClass="table table-wrapper table-hover table-striped b-t b-b" styleClass="p-datatable-gridlines">
             <ng-template pTemplate="colgroup" let-columns>

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Response;
 use App\Models\Position;
 use App\Http\Resources\PositionResource;
+use Carbon\Carbon;
 
 class PositionController extends Controller
 {
@@ -32,7 +33,12 @@ class PositionController extends Controller
         }
         $query->orderBy('id', 'asc');
         $data = $query->get();
-        return response()->json(PositionResource::collection($data), Response::HTTP_OK);
+        return response()->json([
+            'data' => PositionResource::collection($data),
+            'type' => 'SUCCESS',
+            'status' => Response::HTTP_OK,
+            'code' => null
+        ]);;
     }
     
     public function getAllPosition(Request $request) {
@@ -55,7 +61,45 @@ class PositionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $id = $request->id;
+        DB::beginTransaction();
+        try {
+            if($id && $id > 0) {
+                $position = DB::table('positions')->where('id', $id)->limit(1);
+                $position->update([
+                    'code' => $request['code'],
+                    'name' => $request['name'],
+                    'salary' => $request['salary'],
+                    'edited_date' => Carbon::now(),
+                    'edited_by' => 'admin',
+                    'status' => 1
+                ]);
+            } else {
+                $position = DB::table('positions')->insert([ 
+                    'code' => $request['code'],
+                    'name' => $request['name'],
+                    'salary' => $request['salary'],
+                    'created_date' => Carbon::now(),
+                    'created_by' => 'admin',
+                    'status' => 1
+                ]);
+            }
+
+            DB::commit();
+            return response()->json([
+                'type' => 'SUCCESS',
+                'message' => null,
+                'code' => 'Thành công'
+            ], 200);
+        } catch (Exception $exception) {
+            report($exception);
+            DB::rollback();
+            return response()->json([
+                'error' => true,
+                'success' => false,
+                'message' => $exception->getMessage()
+            ], 400);
+        }
     }
 
     /**
@@ -64,32 +108,16 @@ class PositionController extends Controller
      * @param  \App\Models\Apartment  $apartment
      * @return \Illuminate\Http\Response
      */
-    public function show(Apartment $apartment)
+    public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Apartment  $apartment
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Apartment $apartment)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Apartment  $apartment
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Apartment $apartment)
-    {
-        //
+        $query = Position::select('*')->find($id);
+        $data = new PositionResource($query);
+        return response()->json([
+            'data' => $data,
+            'type' => 'SUCCESS',
+            'status' => Response::HTTP_OK,
+            'code' => null
+        ]);
     }
 
     /**
@@ -98,8 +126,25 @@ class PositionController extends Controller
      * @param  \App\Models\Apartment  $apartment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Apartment $apartment)
+    public function destroy($id)
     {
-        //
+        $position = DB::table('positions')->where('id', $id)->limit(1);
+        if($position->count() > 0) {
+            DB::table('positions')->where('id', $id)->delete();
+            return response()->json([
+                'data' => null,
+                'type' => 'SUCCESS',
+                'status' => Response::HTTP_OK,
+                'code' => 'Xóa bản ghi thành công',
+                'message' => null
+            ]);
+        } else {
+            return response()->json([
+                'data' => null,
+                'type' => 'WARNING',
+                'code' => 'Bản ghi không tồn tại',
+                'message' => null
+            ]);
+        }
     }
 }

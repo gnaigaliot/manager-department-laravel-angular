@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PositionService } from 'src/app/core/service/position.service';
 import { BaseComponent } from 'src/app/shared/components/base-component/base-component.component';
+import { PositionAddComponent } from '../position-add/position-add.component';
 
 @Component({
   selector: 'app-position-search',
@@ -19,7 +21,8 @@ export class PositionSearchComponent extends BaseComponent implements OnInit {
   constructor(
     public acrt: ActivatedRoute,
     public router: Router,
-    private positionService: PositionService
+    private positionService: PositionService,
+    private modalService: NgbModal
   ) {
     super(acrt);
     this.setMainService(positionService);
@@ -36,10 +39,12 @@ export class PositionSearchComponent extends BaseComponent implements OnInit {
   }
 
   public prepareSaveOrUpdate(item?: any) {
-    if (item == null) {
-      this.router.navigateByUrl("employee-manager/positions/add");
+    if (item && item > 0) {
+      this.positionService.findOne(item).subscribe(res => {
+        this.activeFormModal(this.modalService, PositionAddComponent, res.data);
+      });
     } else {
-      this.router.navigate(["employee-manager/positions/edit", item]);
+      this.activeFormModal(this.modalService, PositionAddComponent, null);
     }
   }
 

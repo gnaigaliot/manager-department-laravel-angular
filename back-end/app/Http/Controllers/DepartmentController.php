@@ -31,7 +31,12 @@ class DepartmentController extends Controller
         }
         $query->orderBy('id', 'asc');
         $data = $query->get();
-        return response()->json(DepartmentResource::collection($data), Response::HTTP_OK);
+        return response()->json([
+            'data' => DepartmentResource::collection($data),
+            'type' => 'SUCCESS',
+            'status' => Response::HTTP_OK,
+            'code' => null
+        ]);
     }
 
     /**

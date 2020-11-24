@@ -32,6 +32,9 @@ Route::group([
     // position
     Route::get('/positions/search', 'PositionController@index');
     Route::get('/positions/get-all-position', 'PositionController@getAllPosition');
+    Route::delete('/positions/{id}', 'PositionController@destroy');
+    Route::get('/positions/{id}', 'PositionController@show');
+    Route::post('/positions', 'PositionController@store');
     // user
     Route::get('/role/get-roles', 'RolesController@getAllRoles');
     // department-manager/department
