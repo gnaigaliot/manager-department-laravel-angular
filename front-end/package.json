@@ -38,6 +38,7 @@
     "angular-font-awesome": "^3.1.2",
     "bootstrap": "^4.5.3",
     "bootstrap-4-grid": "^3.4.0",
+    "chart.js": "^2.9.4",
     "chartist": "^0.11.4",
     "core-js": "^2.6.11",
     "file-saver": "^2.0.5",

@@ -12,6 +12,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DropdownModule } from 'primeng/dropdown';
 import { SelectFilterComponent } from './components/select-filter/select-filter.component';
+import { ChartModule } from 'primeng/chart';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { SelectFilterComponent } from './components/select-filter/select-filter.
     ReactiveFormsModule,
     MultiSelectModule,
     ConfirmDialogModule,
-    DropdownModule
+    DropdownModule,
+    ChartModule
   ],
   exports: [
     AccordionAnchorDirective,
@@ -43,7 +45,8 @@ import { SelectFilterComponent } from './components/select-filter/select-filter.
     ConfirmDialogModule,
     FontAwesomeModule,
     DropdownModule,
-    SelectFilterComponent
+    SelectFilterComponent,
+    ChartModule
    ],
   providers: [ MenuItems ]
 })

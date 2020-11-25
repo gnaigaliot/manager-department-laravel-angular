@@ -1,1 +1,6 @@
-<p>department-index works!</p>
+<div class="content" *ngIf="havePermission('ROLE_MAN')">
+    <app-department-search></app-department-search>
+</div>
+<div class="content" *ngIf="!havePermission('ROLE_MAN')">
+    Bạn không có quyền với chức năng này
+</div>

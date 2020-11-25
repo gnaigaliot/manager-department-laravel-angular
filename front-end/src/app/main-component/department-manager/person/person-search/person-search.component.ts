@@ -13,7 +13,7 @@ import { PersonAddComponent } from '../person-add/person-add.component';
   styleUrls: ['./person-search.component.css']
 })
 export class PersonSearchComponent extends BaseComponent implements OnInit {
-  apartmentList: any;
+  apartmentList: any = [];
   formconfig = {
     code: ['', [Validators.maxLength(50)]],
     name: ['', [Validators.maxLength(200)]],
@@ -30,7 +30,11 @@ export class PersonSearchComponent extends BaseComponent implements OnInit {
     this.setMainService(personService);
     this.formSearch = this.buildForm({}, this.formconfig);
     this.apartService.getAllApartment().subscribe( res => {
-      this.apartmentList = res.data;
+      if (res.data) {
+        for (const item of res.data) {
+          this.apartmentList.push({label: item.name, value: item.id});
+        }
+      }
     });
   }
 

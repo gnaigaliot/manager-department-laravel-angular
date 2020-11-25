@@ -42,7 +42,6 @@ export class BasicService {
       return;
     }
     this.serviceUrl = API_URL + API_PATH;
-    console.log(this.serviceUrl);
   }
   /**
    * set SystemCode

@@ -33,7 +33,6 @@ export class AppSidebarComponent extends BaseComponent implements OnDestroy, OnI
   ngOnInit(): void {
     this.initMenu();
     this.userLoginName = this.getNameUserLogin();
-    console.log("this.userLoginName", this.userLoginName);
   }
   routerLink: ['/pagename']
   // tslint:disable-next-line: typedef

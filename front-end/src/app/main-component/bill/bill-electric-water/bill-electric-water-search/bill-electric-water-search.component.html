@@ -1,4 +1,4 @@
-<!-- <div *ngIf="havePermission('ROLE_GVCN')"> -->
+<div *ngIf="havePermission('ROLE_GVCN')">
     <div class="panel panel-default">
         <form id="formSearch" [formGroup]="formSearch">
             <div class="panel-heading">
@@ -15,7 +15,7 @@
                     </div>
                     <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Mã căn hộ</label>
                     <div class="ui-g-12 ui-md-6 ui-lg-3">
-                      <p-dropdown [showClear]="true" placeholder = "Hãy chọn" [options]="apartmentList" [formControl]="f['idApartment']" [filter]="true"></p-dropdown>
+                      <p-dropdown placeholder = "Hãy chọn" [options]="apartmentList" [formControl]="f['idApartment']"></p-dropdown>
                     </div>
                 </div>
                 <div class="ui-g-12">
@@ -59,7 +59,7 @@
             </strong>
             <div class="vt-absolute vt-shotcut-button-in-heading">
                 <div>
-                    <button type="button" class="btn btn-sm btn-info"><i class="pi pi-plus-circle"></i> Thêm mới</button>
+                    <button type="button" (click)="prepareSaveOrUpdate()" class="btn btn-sm btn-info"><i class="pi pi-plus-circle"></i> Thêm mới</button>
                 </div>
             </div>
         </div>
@@ -125,4 +125,7 @@
             </p-table>
         </div>
     </div>
-<!-- </div> -->
+</div>
+<div class="content" *ngIf="!havePermission('ROLE_GVCN')">
+    Bạn không có quyền với chức năng này
+</div>

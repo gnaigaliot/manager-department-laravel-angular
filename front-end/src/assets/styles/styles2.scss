@@ -11473,11 +11473,11 @@ body.menu-bottom #collapse-menu {
   //   margin-right: 3px;
   // }
   &.btn-icon {
-    border-radius: 50%;
-    width: 40px;
+    // border-radius: 50%;
+    // width: 40px;
     line-height: 30px;
-    height: 40px;
-    padding: 3px;
+    // height: 40px;
+    // padding: 3px;
     text-align: center;
   }
   &.btn-out {
@@ -14630,7 +14630,7 @@ table {
 }
 
 .widget-card-1 {
-  margin-top: 40px;
+  margin-top: 15px;
   text-align: right;
   .card1-icon {
     width: 60px;

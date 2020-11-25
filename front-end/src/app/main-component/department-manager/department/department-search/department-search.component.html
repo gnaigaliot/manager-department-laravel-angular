@@ -1,4 +1,4 @@
-<!-- <div *ngIf="havePermission('ROLE_SV')"> -->
+<div *ngIf="havePermission('ROLE_SV')">
     <div class="panel panel-default">
         <form id="formSearch" [formGroup]="formSearch">
             <div class="panel-heading">
@@ -118,4 +118,7 @@
             </p-table>
         </div>
     </div>
-<!-- </div> -->
+</div>
+<div class="content" *ngIf="!havePermission('ROLE_SV')">
+    Bạn không có quyền với chức năng này
+</div>

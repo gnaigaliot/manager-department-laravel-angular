@@ -7,7 +7,7 @@ import { DepartmentSearchComponent } from './department/department-search/depart
 import { DepartmentAddComponent } from './department/department-add/department-add.component';
 import { PersonSearchComponent } from './person/person-search/person-search.component';
 import { PersonAddComponent } from './person/person-add/person-add.component';
-
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,8 @@ import { PersonAddComponent } from './person/person-add/person-add.component';
   imports: [
     CommonModule,
     DepartmentManagerRoutingModule,
-    SharedModule
+    SharedModule,
+    AutoCompleteModule
   ]
 })
 export class DepartmentManagerModule { }

@@ -55,16 +55,6 @@ class BillElectricWaterController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -72,7 +62,40 @@ class BillElectricWaterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $id = $request->id;
+        DB::beginTransaction();
+        try {
+            if($id && $id > 0) {
+                $billElectricWater = DB::table('bill_water_electric')->where('id', $id)->limit(1);
+                $department->update([
+                    'code' => $request['code'],
+                    'name' => $request['name'],
+                    'status' => 1,
+                    'edited_date' => Carbon::now()
+                ]);
+            } else {
+                $department = DB::table('bill_water_electric')->insert([
+                    'code' => $request['code'],
+                    'name' => $request['name'],
+                    'status' => 1,
+                    'created_date' => Carbon::now()
+                ]);
+            }
+            DB::commit();
+            return response()->json([
+                'type' => 'SUCCESS',
+                'message' => null,
+                'code' => 'Thành công'
+            ], 200);
+        } catch (Exception $exception) {
+            report($exception);
+            DB::rollback();
+            return response()->json([
+                'error' => true,
+                'success' => false,
+                'message' => $exception->getMessage()
+            ], 400);
+        }
     }
 
     /**
@@ -82,29 +105,6 @@ class BillElectricWaterController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(BillElectricWater $billElectricWater)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\BillElectricWater  $billElectricWater
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(BillElectricWater $billElectricWater)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\BillElectricWater  $billElectricWater
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, BillElectricWater $billElectricWater)
     {
         //
     }

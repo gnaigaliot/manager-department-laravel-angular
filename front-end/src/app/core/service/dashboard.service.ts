@@ -7,14 +7,19 @@ import { HelperService } from 'src/app/shared/service/helper.service';
 @Injectable({
   providedIn: 'root'
 })
-export class PersonService extends BasicService {
+export class DashboardService extends BasicService {
 
   constructor(public httpClient: HttpClient, public helperService: HelperService) {
-    super('person', httpClient, helperService);
+    super('dashboard', httpClient, helperService);
   }
 
-  public findByCodeOrName(codeOrName: string): Observable<any> {
-    const url = `${this.serviceUrl}/find-autocomplete/${codeOrName}`;
+  public getListEmployeeByYear(year: number): Observable<any> {
+    const url = `${this.serviceUrl}/${year}`;
+    return this.getRequest(url);
+  }
+
+  public getDashBoard(): Observable<any> {
+    const url = `${this.serviceUrl}/dashboard`;
     return this.getRequest(url);
   }
 }

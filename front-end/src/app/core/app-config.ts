@@ -10,7 +10,8 @@ export const CONFIG: any = {
     role: '/role',
     billWaterElectric: '/bill-water-electric',
     billOther: '/bill-other',
-    bill: '/bill-service-type'
+    bill: '/bill-service-type',
+    dashboard: '/dashboard'
   }
 };
 

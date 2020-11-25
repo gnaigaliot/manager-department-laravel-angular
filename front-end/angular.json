@@ -43,7 +43,9 @@
               "src/assets/styles/app.css",
               "src/assets/styles/layout.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/chart.js/dist/Chart.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -108,7 +110,9 @@
               "src/styles.css",
               "src/assets/styles/style.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/chart.js/dist/Chart.js"
+            ]
           }
         },
         "lint": {

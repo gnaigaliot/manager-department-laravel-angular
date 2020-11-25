@@ -40,14 +40,12 @@ export class DepartmentSearchComponent extends BaseComponent implements OnInit {
   public get f () {
     return this.formSearch.controls;
   }
-
-  public prepareSaveOrUpdate(item?: any) {
-    if (item && item > 0) {
-      this.departmentService.findOne(item).subscribe(res => {
-        this.activeFormModal(this.modalService, DepartmentAddComponent, res.data);
-      });
+  
+  public prepareSaveOrUpdate(item?) {
+    if(item == null) {
+      this.router.navigateByUrl("department-manager/department/add");
     } else {
-      this.activeFormModal(this.modalService, DepartmentAddComponent, null);
+      this.router.navigate(['department-manager/department/edit', item]);
     }
   }
 

@@ -21,11 +21,13 @@ class PersonResource extends JsonResource
             'gender' => $this->gender,
             'address' => $this->address,
             'identityNumber' => $this->identity_number,
-            'dateOfBirth' => $this->date_of_bird,
+            'dateOfBirth' => $this->date_of_birth,
             'email' => $this->email,
             'idPerson' => $this->id_person,
             'isMain' => $this->is_main,
-            'phoneNumber' => $this->phone_number
+            'phoneNumber' => $this->phone_number,
+            'startDate' => $this->start_date,
+            'endDate' => $this->end_date
         ];
     }
 }

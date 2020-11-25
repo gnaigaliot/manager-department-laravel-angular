@@ -33,7 +33,11 @@ export class BillOtherSearchComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     this.processSearch();
     this.departmentService.getAllApartment().subscribe( res => {
-      this.apartmentList = res.data;
+      if (res.data) {
+        for (const item of res.data) {
+          this.apartmentList.push({label: item.name, value: item.id});
+        }
+      }
     });
   }
 

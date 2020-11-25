@@ -13,7 +13,7 @@ import { CommonUtils } from 'src/app/shared/service/common-utils.service';
   styleUrls: ['./person-add.component.css']
 })
 export class PersonAddComponent extends BaseComponent implements OnInit {
-  private formConfig = {
+  formConfig = {
     id: [''],
     code: ['', Validators.required],
     name: ['', Validators.required],
@@ -22,7 +22,9 @@ export class PersonAddComponent extends BaseComponent implements OnInit {
     identityNumber: [''],
     dateOfBirth: ['', Validators.required],
     phoneNumber: [''],
-    email: ['']
+    email: [''],
+    startDate: ['', Validators.required],
+    endDate: ['']
   };
   private idPerson: any;
   public formSave: FormGroup;

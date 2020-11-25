@@ -39,13 +39,22 @@ Route::group([
     Route::get('/role/get-roles', 'RolesController@getAllRoles');
     // department-manager/department
     Route::get('/department-manager/department/search', 'ApartmentController@index');
+    Route::post('/department-manager/department', 'ApartmentController@store');
     Route::get('/department-manager/department/get-all-apartment', 'ApartmentController@getAllApartment');
     Route::get('/department-manager/department/{id}', 'ApartmentController@show');
     Route::delete('/department-manager/department/{id}', 'ApartmentController@destroy');
     // department-manager/person
-    Route::get('department-manager/person/search', 'PersonController@index');
+    Route::get('/department-manager/person/search', 'PersonController@index');
+    Route::post('/department-manager/person', 'PersonController@store');
+    Route::delete('/department-manager/person/{id}', 'PersonController@destroy');
+    Route::get('/department-manager/person/{id}', 'PersonController@show');
+    Route::get('/department-manager/person/find-autocomplete/{codeOrName}', 'PersonController@findAutoComplete');
     // bill/bill-electric-water
     Route::get('/bill-water-electric/search', 'BillElectricWaterController@index');
+    Route::post('/bill-water-electric', 'BillElectricWaterController@store');
     // bill-service-type
     Route::get('/bill-service-type/search', 'BillServiceTypeController@index');
+    // dashboard
+    Route::get('/dashboard/dashboard', 'DashboardController@index');
+    Route::get('/dashboard/{year}', 'DashboardController@getListEmployeeByYear');
 });
